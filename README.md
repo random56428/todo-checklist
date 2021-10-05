@@ -1,4 +1,4 @@
-# Simple To Do Checklist Project
+# Simple To-Do Checklist Project
 
 A simple to-do checklist project made from Java for CPSC210.
 
@@ -16,3 +16,12 @@ A simple to-do checklist project made from Java for CPSC210.
       its simplicity and functionality. I've been using notepad to keep track of tasks I have to do. While notepad is
       great for keeping track of small amount of tasks, a large amount of homework, labs, and things to do easily gets
       really cluttered. Hopefully, this project will eliminate that.
+
+## User Stories
+
+- As a user, I want to be able to add a task to my to-do list
+- As a user, I want to be able to delete a task from my to-do list
+- As a user, I want to be able to edit a task from my to-do list
+- As a user, I want to be able to check a task and mark it as done from my to-do list
+- As a user, I want to be able to view the list of tasks currently in my to-do list
+- As a user, I want to be able to see the number of tasks finished and in progress in my to-do list
