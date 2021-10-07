@@ -1,5 +1,6 @@
 package model;
 
+// Represents a task with a note description and whether it's checked as completed or not
 public class Task {
     private String note;
     private boolean checked;

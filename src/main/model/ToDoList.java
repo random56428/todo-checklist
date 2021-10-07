@@ -3,8 +3,8 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.*;
-
+// Represents a to-do list to add tasks to undertake and a list with completed tasks.
+// Includes basic functions every to-do list has such as add, delete, edit, view, and check a task.
 public class ToDoList {
     private List<Task> toDoList;
     private List<Task> completedList;

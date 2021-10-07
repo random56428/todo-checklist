@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// A test class for ToDoList class
 class ToDoListTest {
     private ToDoList testToDoList;
 
