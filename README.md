@@ -25,4 +25,5 @@ A simple to-do checklist project made from Java for CPSC210.
 - As a user, I want to be able to uncheck a task and move it back to my to-do list
 - As a user, I want to be able to clear the completed tasks
 - As a user, I want to be able to view the list of tasks currently in my to-do list
+- As a user, I want to be able to view the list of tasks completed
 - As a user, I want to be able to view the number of incomplete and complete tasks in my to-do list

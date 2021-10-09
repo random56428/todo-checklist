@@ -20,6 +20,7 @@ class ToDoListTest {
     @Test
     public void constructorTest() {
         assertEquals("", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(0, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -30,6 +31,7 @@ class ToDoListTest {
         testToDoList.addTask(testTask);
 
         assertEquals("1", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(1, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -47,6 +49,7 @@ class ToDoListTest {
         }
 
         assertEquals("0, 1", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(2, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -55,9 +58,11 @@ class ToDoListTest {
     public void deleteTaskTest() {
         Task testTask = new Task("1");
         testToDoList.addTask(testTask);
-        testToDoList.deleteTask("1");
+        boolean result = testToDoList.deleteTask("1");
 
+        assertTrue(result);
         assertEquals("", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(0, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -77,9 +82,11 @@ class ToDoListTest {
             testToDoList.addTask(t);
         }
 
-        testToDoList.deleteTask("same note");
+        boolean result = testToDoList.deleteTask("same note");
 
+        assertTrue(result);
         assertEquals("1, same note", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(2, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -96,9 +103,11 @@ class ToDoListTest {
             testToDoList.addTask(t);
         }
 
-        testToDoList.deleteTask("task that doesn't exist");
+        boolean result = testToDoList.deleteTask("task that doesn't exist");
 
+        assertFalse(result);
         assertEquals("0, 1, 2", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(3, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -115,9 +124,11 @@ class ToDoListTest {
             testToDoList.addTask(t);
         }
 
-        testToDoList.editTask("3", "test");
+        boolean result = testToDoList.editTask("3", "test");
 
+        assertTrue(result);
         assertEquals("0, 1, 2, test, 4, 5", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(6, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -134,9 +145,11 @@ class ToDoListTest {
             testToDoList.addTask(t);
         }
 
-        testToDoList.editTask("task that doesn't exist", "test");
+        boolean result = testToDoList.editTask("task that doesn't exist", "test");
 
+        assertFalse(result);
         assertEquals("0, 1, 2", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(3, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -153,15 +166,19 @@ class ToDoListTest {
             testToDoList.addTask(t);
         }
 
-        testToDoList.checkTask("4");
+        boolean result = testToDoList.checkTask("4");
 
+        assertTrue(result);
         assertEquals("0, 1, 2, 3, 5", testToDoList.viewToDoList());
+        assertEquals("4", testToDoList.viewCompletedList());
         assertEquals(5, testToDoList.getIncompleteTasks());
         assertEquals(1, testToDoList.getCompletedTasks());
 
-        testToDoList.checkTask("2");
+        result = testToDoList.checkTask("2");
 
+        assertTrue(result);
         assertEquals("0, 1, 3, 5", testToDoList.viewToDoList());
+        assertEquals("4, 2", testToDoList.viewCompletedList());
         assertEquals(4, testToDoList.getIncompleteTasks());
         assertEquals(2, testToDoList.getCompletedTasks());
     }
@@ -178,9 +195,11 @@ class ToDoListTest {
             testToDoList.addTask(t);
         }
 
-        testToDoList.checkTask("task that doesn't exist");
+        boolean result = testToDoList.checkTask("task that doesn't exist");
 
+        assertFalse(result);
         assertEquals("0, 1, 2", testToDoList.viewToDoList());
+        assertEquals("", testToDoList.viewCompletedList());
         assertEquals(3, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
     }
@@ -201,15 +220,19 @@ class ToDoListTest {
         testToDoList.checkTask("2");
         testToDoList.checkTask("3");
 
-        testToDoList.uncheckTask("2");
+        boolean result = testToDoList.uncheckTask("2");
 
+        assertTrue(result);
         assertEquals("0, 4, 5, 2", testToDoList.viewToDoList());
+        assertEquals("1, 3", testToDoList.viewCompletedList());
         assertEquals(4, testToDoList.getIncompleteTasks());
         assertEquals(2, testToDoList.getCompletedTasks());
 
-        testToDoList.uncheckTask("1");
+        result = testToDoList.uncheckTask("1");
 
+        assertTrue(result);
         assertEquals("0, 4, 5, 2, 1", testToDoList.viewToDoList());
+        assertEquals("3", testToDoList.viewCompletedList());
         assertEquals(5, testToDoList.getIncompleteTasks());
         assertEquals(1, testToDoList.getCompletedTasks());
     }
@@ -230,9 +253,11 @@ class ToDoListTest {
         testToDoList.checkTask("2");
         testToDoList.checkTask("3");
 
-        testToDoList.uncheckTask("task that doesn't exist");
+        boolean result = testToDoList.uncheckTask("task that doesn't exist");
 
+        assertFalse(result);
         assertEquals("0", testToDoList.viewToDoList());
+        assertEquals("1, 2, 3", testToDoList.viewCompletedList());
         assertEquals(1, testToDoList.getIncompleteTasks());
         assertEquals(3, testToDoList.getCompletedTasks());
     }

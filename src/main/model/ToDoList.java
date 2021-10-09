@@ -23,57 +23,61 @@ public class ToDoList {
     }
 
     //MODIFIES: this
-    //EFFECTS: removes the first occurrence of task matching the string n from the to-do list,
-    //         otherwise if not found, do nothing
-    public void deleteTask(String n) {
+    //EFFECTS: removes the first occurrence of task matching the string n from the to-do list
+    //         and return true, otherwise if not found, return false
+    public boolean deleteTask(String n) {
         for (Task t : toDoList) {
             if (t.getNote().equals(n)) {
                 toDoList.remove(t);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     //MODIFIES: this
     //EFFECTS: changes the task note matching the first occurrence of beforeNote to afterNote
-    //         in the to-do list, otherwise if not found, do nothing
-    public void editTask(String beforeNote, String afterNote) {
+    //         in the to-do list and return true, otherwise if not found, return false
+    public boolean editTask(String beforeNote, String afterNote) {
         for (Task t : toDoList) {
             if (t.getNote().equals(beforeNote)) {
                 t.setNote(afterNote);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     //MODIFIES: this
     //EFFECTS: check the first occurrence of task matching the given string n in to-do list,
-    //         remove it from the to-do list, and add it to the end of the completed list,
-    //         otherwise if not found, do nothing
-    public void checkTask(String n) {
+    //         remove it from the to-do list, then add it to the end of the completed list and
+    //         return true, otherwise if not found, return false
+    public boolean checkTask(String n) {
         for (Task t : toDoList) {
             if (t.getNote().equals(n)) {
                 t.check();
                 completedList.add(t);
                 toDoList.remove(t);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     //MODIFIES: this
     //EFFECTS: uncheck the first occurrence of task matching given string n in complete
-    //         list, remove it from the complete list, and add it to the end of to-do list,
-    //         otherwise if not found, do nothing
-    public void uncheckTask(String n) {
+    //         list, remove it from the complete list, then add it to the end of to-do list and
+    //         return true, otherwise if not found, return false
+    public boolean uncheckTask(String n) {
         for (Task t : completedList) {
             if (t.getNote().equals(n)) {
                 t.uncheck();
                 toDoList.add(t);
                 completedList.remove(t);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     //MODIFIES: this
@@ -88,6 +92,22 @@ public class ToDoList {
         String allTasks = "";
 
         for (Task t : toDoList) {
+            allTasks += t.getNote() + ", ";
+        }
+
+        if (allTasks.length() > 1) {
+            return allTasks.substring(0, allTasks.length() - 2);
+        } else {
+            return allTasks;
+        }
+    }
+
+    //EFFECTS: returns a string of all the task's notes completed in the completed list
+    //         in format: "note A, note B, note C", etc.
+    public String viewCompletedList() {
+        String allTasks = "";
+
+        for (Task t : completedList) {
             allTasks += t.getNote() + ", ";
         }
 
