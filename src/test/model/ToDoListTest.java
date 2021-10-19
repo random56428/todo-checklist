@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -283,5 +285,35 @@ class ToDoListTest {
         assertEquals("1, 3, 5", testToDoList.viewToDoList());
         assertEquals(3, testToDoList.getIncompleteTasks());
         assertEquals(0, testToDoList.getCompletedTasks());
+    }
+
+    @Test
+    public void testToJson() {
+        List<Task> taskList = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            taskList.add(new Task("" + i));
+        }
+
+        for (Task t : taskList) {
+            testToDoList.addTask(t);
+        }
+
+        for (int i = 2; i < 4; i++) {
+            testToDoList.checkTask("" + i);
+        }
+
+        JSONObject testJson = testToDoList.toJson();
+        JSONArray testJsonArray = testJson.getJSONArray("todolist");
+
+        for (int i = 0; i < 2; i++) {
+            assertEquals("" + i, testJsonArray.getJSONObject(i).getString("task"));
+            assertFalse(testJsonArray.getJSONObject(i).getBoolean("checked"));
+        }
+
+        for (int i = 2; i < 4; i++) {
+            assertEquals("" + i, testJsonArray.getJSONObject(i).getString("task"));
+            assertTrue(testJsonArray.getJSONObject(i).getBoolean("checked"));
+        }
     }
 }

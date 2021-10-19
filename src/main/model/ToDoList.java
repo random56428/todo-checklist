@@ -1,11 +1,15 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.LinkedList;
 import java.util.List;
 
 // Represents a to-do list to add tasks to undertake and a list with completed tasks.
 // Includes basic functions every to-do list has such as add, delete, edit, view, and check a task.
-public class ToDoList {
+public class ToDoList implements Writable {
     private List<Task> toDoList;
     private List<Task> completedList;
 
@@ -128,4 +132,18 @@ public class ToDoList {
         return completedList.size();
     }
 
+    // This method references code from this repository
+    // Link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    //EFFECTS: puts to-do list and completed list into json object and returns it
+    @Override
+    public JSONObject toJson() {
+        return new JSONObject(); //stub
+    }
+
+    // This method references code from this repository
+    // Link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    //EFFECTS: returns tasks in this to-do list and completed list in a json array
+    private JSONArray allTasksToJson() {
+        return new JSONArray(); //stub
+    }
 }

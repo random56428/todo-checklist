@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a task with a note description and whether it's checked as completed or not
-public class Task {
+public class Task implements Writable {
     private String note;
     private boolean checked;
 
@@ -38,4 +41,11 @@ public class Task {
         return this.checked;
     }
 
+    // This method references code from this repository
+    // Link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    //EFFECTS: puts task note and checked status in a json object and returns it
+    @Override
+    public JSONObject toJson() {
+        return new JSONObject(); //stub
+    }
 }

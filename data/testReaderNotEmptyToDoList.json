@@ -1,0 +1,20 @@
+{
+  "todolist": [
+    {
+      "task": "buns",
+      "check": false
+    },
+    {
+      "task": "tomato",
+      "check": false
+    },
+    {
+      "task": "cheese",
+      "check": true
+    },
+    {
+      "task": "patty",
+      "check": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "todolist": [
+    {
+      "task": "lab 4pm",
+      "check": false
+    },
+    {
+      "task": "dinner 7pm",
+      "check": false
+    },
+    {
+      "task": "lecture 1pm",
+      "check": true
+    }
+  ]
+}

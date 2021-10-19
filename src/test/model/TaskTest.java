@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,4 +52,10 @@ public class TaskTest {
         assertTrue(testTask.isChecked());
     }
 
+    @Test
+    public void toJsonTest() {
+        JSONObject testJson = testTask.toJson();
+        assertEquals(testTask.getNote(), testJson.getString("note"));
+        assertFalse(testJson.getBoolean("checked"));
+    }
 }
