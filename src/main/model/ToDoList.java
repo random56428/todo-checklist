@@ -90,36 +90,29 @@ public class ToDoList implements Writable {
         completedList.clear();
     }
 
-    //EFFECTS: returns a string of all the task's notes currently in to-do list
+    //EFFECTS: returns a string of all the task's notes currently in to-do list/completed list
     //         in format: "note A, note B, note C", etc.
-    public String viewToDoList() {
-        String allTasks = "";
+    //         Returns in progress to-do list if parameter is false, and returns completed to-do list
+    //         if parameter is true
+    public String viewToDoList(Boolean isCompleted) {
+        StringBuilder allTasks = new StringBuilder();
+        List<Task> whichListToView;
 
-        for (Task t : toDoList) {
-            allTasks += t.getNote() + ", ";
+        if (isCompleted) {
+            whichListToView = completedList;
+        } else {
+            whichListToView = toDoList;
+        }
+
+        for (Task t : whichListToView) {
+            allTasks.append(t.getNote() + ", ");
         }
 
         if (allTasks.length() > 1) {
-            return allTasks.substring(0, allTasks.length() - 2);
-        } else {
-            return allTasks;
-        }
-    }
-
-    //EFFECTS: returns a string of all the task's notes completed in the completed list
-    //         in format: "note A, note B, note C", etc.
-    public String viewCompletedList() {
-        String allTasks = "";
-
-        for (Task t : completedList) {
-            allTasks += t.getNote() + ", ";
+            allTasks.setLength(allTasks.length() - 2);
         }
 
-        if (allTasks.length() > 1) {
-            return allTasks.substring(0, allTasks.length() - 2);
-        } else {
-            return allTasks;
-        }
+        return allTasks.toString();
     }
 
     //EFFECTS: returns the number of tasks still incomplete in the to-do list

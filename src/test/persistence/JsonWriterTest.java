@@ -39,8 +39,8 @@ public class JsonWriterTest {
             td = reader.read();
             assertEquals(0, td.getIncompleteTasks());
             assertEquals(0, td.getCompletedTasks());
-            assertEquals("", td.viewToDoList());
-            assertEquals("", td.viewCompletedList());
+            assertEquals("", td.viewToDoList(false));
+            assertEquals("", td.viewToDoList(true));
         } catch (IOException e) {
             fail("Caught IOException");
         }
@@ -63,8 +63,8 @@ public class JsonWriterTest {
             td = reader.read();
             assertEquals(2, td.getIncompleteTasks());
             assertEquals(1, td.getCompletedTasks());
-            assertEquals("lab 4pm, dinner 7pm", td.viewToDoList());
-            assertEquals("lecture 1pm", td.viewCompletedList());
+            assertEquals("lab 4pm, dinner 7pm", td.viewToDoList(false));
+            assertEquals("lecture 1pm", td.viewToDoList(true));
         } catch (IOException e) {
             fail("Caught IOException");
         }

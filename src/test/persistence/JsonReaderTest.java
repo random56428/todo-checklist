@@ -31,8 +31,8 @@ public class JsonReaderTest {
             ToDoList td = reader.read();
             assertEquals(0, td.getIncompleteTasks());
             assertEquals(0, td.getCompletedTasks());
-            assertEquals("", td.viewToDoList());
-            assertEquals("", td.viewCompletedList());
+            assertEquals("", td.viewToDoList(false));
+            assertEquals("", td.viewToDoList(true));
         } catch (IOException e) {
             fail("Caught IOException");
         }
@@ -45,8 +45,8 @@ public class JsonReaderTest {
             ToDoList td = reader.read();
             assertEquals(2, td.getIncompleteTasks());
             assertEquals(2, td.getCompletedTasks());
-            assertEquals("buns, tomato", td.viewToDoList());
-            assertEquals("cheese, patty", td.viewCompletedList());
+            assertEquals("buns, tomato", td.viewToDoList(false));
+            assertEquals("cheese, patty", td.viewToDoList(true));
         } catch (IOException e) {
             fail("Caught IOException");
         }

@@ -75,10 +75,10 @@ public class ToDoApp {
     //EFFECTS: displays the current to-do list elements
     private void displayList() {
         System.out.println("Current to-do list:\n");
-        System.out.println(toDoList.viewToDoList());
+        System.out.println(toDoList.viewToDoList(false));
         System.out.println();
         System.out.println("Completed list:\n");
-        System.out.println(toDoList.viewCompletedList());
+        System.out.println(toDoList.viewToDoList(true));
         System.out.println();
         System.out.println("Tasks in progress: " + toDoList.getIncompleteTasks());
         System.out.println("Tasks completed: " + toDoList.getCompletedTasks());
