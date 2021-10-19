@@ -55,7 +55,7 @@ public class TaskTest {
     @Test
     public void toJsonTest() {
         JSONObject testJson = testTask.toJson();
-        assertEquals(testTask.getNote(), testJson.getString("note"));
-        assertFalse(testJson.getBoolean("checked"));
+        assertEquals(testTask.getNote(), testJson.getString("task"));
+        assertFalse(testJson.getBoolean("check"));
     }
 }

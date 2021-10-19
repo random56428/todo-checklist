@@ -137,13 +137,25 @@ public class ToDoList implements Writable {
     //EFFECTS: puts to-do list and completed list into json object and returns it
     @Override
     public JSONObject toJson() {
-        return new JSONObject(); //stub
+        JSONObject json = new JSONObject();
+        json.put("todolist", allTasksToJson());
+        return json;
     }
 
     // This method references code from this repository
     // Link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     //EFFECTS: returns tasks in this to-do list and completed list in a json array
     private JSONArray allTasksToJson() {
-        return new JSONArray(); //stub
+        JSONArray jsonArray = new JSONArray();
+
+        for (Task t : toDoList) {
+            jsonArray.put(t.toJson());
+        }
+
+        for (Task t : completedList) {
+            jsonArray.put(t.toJson());
+        }
+
+        return jsonArray;
     }
 }

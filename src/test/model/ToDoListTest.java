@@ -308,12 +308,12 @@ class ToDoListTest {
 
         for (int i = 0; i < 2; i++) {
             assertEquals("" + i, testJsonArray.getJSONObject(i).getString("task"));
-            assertFalse(testJsonArray.getJSONObject(i).getBoolean("checked"));
+            assertFalse(testJsonArray.getJSONObject(i).getBoolean("check"));
         }
 
         for (int i = 2; i < 4; i++) {
             assertEquals("" + i, testJsonArray.getJSONObject(i).getString("task"));
-            assertTrue(testJsonArray.getJSONObject(i).getBoolean("checked"));
+            assertTrue(testJsonArray.getJSONObject(i).getBoolean("check"));
         }
     }
 }

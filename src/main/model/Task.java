@@ -46,6 +46,9 @@ public class Task implements Writable {
     //EFFECTS: puts task note and checked status in a json object and returns it
     @Override
     public JSONObject toJson() {
-        return new JSONObject(); //stub
+        JSONObject json = new JSONObject();
+        json.put("task", note);
+        json.put("check", checked);
+        return json;
     }
 }

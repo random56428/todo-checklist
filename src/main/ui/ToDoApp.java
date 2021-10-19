@@ -2,20 +2,27 @@ package ui;
 
 import model.Task;
 import model.ToDoList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
+// This class references code from this repository
+// Link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // A user console application for to-do list
 public class ToDoApp {
+    private static final String JSON_FILE_LOCATION = "./data/todolist.json";
     private ToDoList toDoList;
     private Scanner sc;
+    private JsonReader reader;
+    private JsonWriter writer;
 
     public ToDoApp() {
         launchApp();
     }
 
-    // This method references code from this repo
-    // Link: https://github.students.cs.ubc.ca/CPSC210/TellerApp
     //MODIFIES: this
     //EFFECTS: start the application and ask for user input
     private void launchApp() {
@@ -30,7 +37,7 @@ public class ToDoApp {
 
             nextAction = sc.nextLine();
 
-            if (nextAction.equals("7")) {
+            if (nextAction.equals("9")) {
                 keepLooping = false;
             } else {
                 actionCenter(nextAction);
@@ -42,14 +49,16 @@ public class ToDoApp {
 
     //EFFECTS: prints out number of options for user input
     private void displayOptions() {
-        System.out.println("Please select an option:\n"
-                + "[1] Add a task\n"
-                + "[2] Edit a task\n"
-                + "[3] Delete a task\n"
-                + "[4] Check a task\n"
-                + "[5] Uncheck a task\n"
-                + "[6] Clear the completed list\n"
-                + "[7] Exit");
+        System.out.println("Please select an option:");
+        System.out.println("[1] Add a task");
+        System.out.println("[2] Edit a task");
+        System.out.println("[3] Delete a task");
+        System.out.println("[4] Check a task");
+        System.out.println("[5] Uncheck a task");
+        System.out.println("[6] Clear the completed list");
+        System.out.println("[7] Save to-do list to file");
+        System.out.println("[8] Load to-do list from file");
+        System.out.println("[9] Exit");
     }
 
     //EFFECTS: displays the current to-do list elements
@@ -86,6 +95,23 @@ public class ToDoApp {
                 break;
             case "6":
                 clearCompleteList();
+                break;
+            default:
+                actionCenterContinued(action);
+                break;
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: continues actionCenter because of checkstyle; takes given input and execute
+    //method according to chosen number
+    private void actionCenterContinued(String action) {
+        switch (action) {
+            case "7":
+                saveToDoList();
+                break;
+            case "8":
+                loadToDoList();
                 break;
             default:
                 System.out.println("[INVALID] Invalid entry\n");
@@ -169,5 +195,35 @@ public class ToDoApp {
     private void init() {
         this.toDoList = new ToDoList();
         this.sc = new Scanner(System.in);
+        this.reader = new JsonReader(JSON_FILE_LOCATION);
+        this.writer = new JsonWriter(JSON_FILE_LOCATION);
     }
+
+    //EFFECTS: saves to-do list data onto file
+    private void saveToDoList() {
+        try {
+            writer.open();
+            writer.write(toDoList);
+            writer.close();
+            System.out.println("[SUCCESS] Saved to-do list to path: " + JSON_FILE_LOCATION);
+            System.out.println();
+        } catch (FileNotFoundException e) {
+            System.out.println("[FAILURE] Unable to save to-do list to path: " + JSON_FILE_LOCATION);
+            System.out.println();
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads to-do list from file
+    private void loadToDoList() {
+        try {
+            toDoList = reader.read();
+            System.out.println("[SUCCESS] Loaded to-do list from path: " + JSON_FILE_LOCATION);
+            System.out.println();
+        } catch (IOException e) {
+            System.out.println("[FAILURE] Unable to load to-list from path: " + JSON_FILE_LOCATION);
+            System.out.println();
+        }
+    }
+
 }
