@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 // Link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a writer that writes json representation of to-do list onto a file
 public class JsonWriter {
+    private static final int JSON_TAB_INDENTATION = 4;
     private PrintWriter writer;
     private String destination;
 
@@ -30,7 +31,7 @@ public class JsonWriter {
     //EFFECTS: writes to-do list as json representation onto a file
     public void write(ToDoList td) {
         JSONObject json = td.toJson();
-        writer.print(json.toString(4));
+        writer.print(json.toString(JSON_TAB_INDENTATION));
     }
 
     //MODIFIES: this

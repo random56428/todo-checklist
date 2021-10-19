@@ -14,6 +14,15 @@ import java.util.Scanner;
 // A user console application for to-do list
 public class ToDoApp {
     private static final String JSON_FILE_LOCATION = "./data/todolist.json";
+    private static final String OPTION_ADD_TASK = "1";
+    private static final String OPTION_EDIT_TASK = "2";
+    private static final String OPTION_DELETE_TASK = "3";
+    private static final String OPTION_CHECK_TASK = "4";
+    private static final String OPTION_UNCHECK_TASK = "5";
+    private static final String OPTION_CLEAR_COMPLETED_LIST = "6";
+    private static final String OPTION_SAVE_LIST = "7";
+    private static final String OPTION_LOAD_LIST = "8";
+    private static final String OPTION_EXIT = "9";
     private ToDoList toDoList;
     private Scanner sc;
     private JsonReader reader;
@@ -23,6 +32,8 @@ public class ToDoApp {
         launchApp();
     }
 
+    // This method references code from this repository
+    // Link: https://github.students.cs.ubc.ca/CPSC210/TellerApp
     //MODIFIES: this
     //EFFECTS: start the application and ask for user input
     private void launchApp() {
@@ -37,7 +48,7 @@ public class ToDoApp {
 
             nextAction = sc.nextLine();
 
-            if (nextAction.equals("9")) {
+            if (nextAction.equals(OPTION_EXIT)) {
                 keepLooping = false;
             } else {
                 actionCenter(nextAction);
@@ -76,41 +87,31 @@ public class ToDoApp {
 
     //MODIFIES: this
     //EFFECTS: takes the given user input and execute methods according to number
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void actionCenter(String action) {
         switch (action) {
-            case "1":
+            case OPTION_ADD_TASK:
                 addATask();
                 break;
-            case "2":
+            case OPTION_EDIT_TASK:
                 editATask();
                 break;
-            case "3":
+            case OPTION_DELETE_TASK:
                 deleteATask();
                 break;
-            case "4":
+            case OPTION_CHECK_TASK:
                 checkATask();
                 break;
-            case "5":
+            case OPTION_UNCHECK_TASK:
                 uncheckATask();
                 break;
-            case "6":
+            case OPTION_CLEAR_COMPLETED_LIST:
                 clearCompleteList();
                 break;
-            default:
-                actionCenterContinued(action);
-                break;
-        }
-    }
-
-    //MODIFIES: this
-    //EFFECTS: continues actionCenter because of checkstyle; takes given input and execute
-    //method according to chosen number
-    private void actionCenterContinued(String action) {
-        switch (action) {
-            case "7":
+            case OPTION_SAVE_LIST:
                 saveToDoList();
                 break;
-            case "8":
+            case OPTION_LOAD_LIST:
                 loadToDoList();
                 break;
             default:
