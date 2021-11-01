@@ -48,5 +48,6 @@ public class ToDoListGUI extends JFrame {
     //EFFECTS: adds task to to-do list
     public void addTask(String s) {
         this.toDoList.addTask(new Task(s));
+        listPane.addToDefaultListModel(s);
     }
 }

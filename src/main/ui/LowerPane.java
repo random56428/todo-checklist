@@ -15,7 +15,7 @@ public class LowerPane extends JPanel {
 
         this.toDoListGUI = toDoListGUI;
 
-        JTextField textField = new JTextField("Hello");
+        JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(200,30));
 
         JButton addButton = new JButton("Add");
