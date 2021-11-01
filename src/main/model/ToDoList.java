@@ -115,6 +115,16 @@ public class ToDoList implements Writable {
         return allTasks.toString();
     }
 
+    //EFFECTS: if param is true, return the completed list, otherwise,
+    //         if param is false, return the to-do list
+    public List<Task> getToDoList(Boolean isCompleted) {
+        if (isCompleted) {
+            return this.completedList;
+        } else {
+            return this.toDoList;
+        }
+    }
+
     //EFFECTS: returns the number of tasks still incomplete in the to-do list
     public int getIncompleteTasks() {
         return toDoList.size();

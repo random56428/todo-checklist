@@ -317,4 +317,37 @@ class ToDoListTest {
             assertTrue(testJsonArray.getJSONObject(i).getBoolean("check"));
         }
     }
+
+    @Test
+    public void testGetToDoListCompletedList() {
+        List<Task> testList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            Task newTask = new Task("" + i);
+            testList.add(newTask);
+            testToDoList.addTask(newTask);
+            testToDoList.checkTask("" + i);
+        }
+
+        List<Task> listToCompare = testToDoList.getToDoList(true);
+
+        assertEquals(testList.size(), listToCompare.size());
+        assertEquals(testList, listToCompare);
+    }
+
+    @Test
+    public void testGetToDoListToDoList() {
+        List<Task> testList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            Task newTask = new Task("" + i);
+            testList.add(newTask);
+            testToDoList.addTask(newTask);
+        }
+
+        List<Task> listToCompare = testToDoList.getToDoList(false);
+
+        assertEquals(testList.size(), listToCompare.size());
+        assertEquals(testList, listToCompare);
+    }
 }

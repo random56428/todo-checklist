@@ -1,5 +1,6 @@
 package ui;
 
+import model.Task;
 import model.ToDoList;
 
 import javax.swing.*;
@@ -31,15 +32,21 @@ public class ToDoListGUI extends JFrame {
     //MODIFIES: this
     //EFFECTS: initialize the list pane for to-do list
     public void initList() {
-        toDoList = new ToDoList();
-        listPane = new ListPane();
+        this.toDoList = new ToDoList();
+        this.listPane = new ListPane();
         add(listPane, BorderLayout.NORTH);
     }
 
     //MODIFIES: this
     //EFFECTS: initialize the bottom portion panel with functionality
     public void initLowerPane() {
-        lowerPane = new LowerPane();
+        this.lowerPane = new LowerPane(this);
         add(lowerPane, BorderLayout.SOUTH);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds task to to-do list
+    public void addTask(String s) {
+        this.toDoList.addTask(new Task(s));
     }
 }
