@@ -33,7 +33,7 @@ public class ToDoListGUI extends JFrame {
     //EFFECTS: initialize the list pane for to-do list
     public void initList() {
         this.toDoList = new ToDoList();
-        this.listPane = new ListPane();
+        this.listPane = new ListPane(this);
         add(listPane, BorderLayout.NORTH);
     }
 
@@ -60,4 +60,10 @@ public class ToDoListGUI extends JFrame {
             toDoList.deleteTask(result);
         }
     }
+
+    //EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in list
+    public void passValueIsSelected(boolean isSelected) {
+        lowerPane.enableDeleteButton(isSelected);
+    }
+
 }

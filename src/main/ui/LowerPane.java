@@ -74,12 +74,20 @@ public class LowerPane extends JPanel {
     //EFFECTS: initializes delete button
     public void initDeleteButton() {
         this.deleteButton = new JButton("Delete");
+        deleteButton.setEnabled(false);
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 toDoListGUI.deleteTask();
             }
         });
+    }
+
+    //MODIFIES: this
+    //EFFECTS: if passed value is true - a task is selected in the list, enable delete button,
+    //otherwise, if false - a task is not selected in list, disable delete button
+    public void enableDeleteButton(boolean isEnabled) {
+        this.deleteButton.setEnabled(isEnabled);
     }
 
 }

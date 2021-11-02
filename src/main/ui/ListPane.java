@@ -3,6 +3,8 @@ package ui;
 import model.Task;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 //Represents the list component of to-do list
@@ -10,20 +12,41 @@ public class ListPane extends JPanel {
     private static final int VISIBLE_ROWS = 10;
     private static final int LIST_WIDTH = 300;
     private static final int LIST_HEIGHT = 200;
-    DefaultListModel<String> defaultListModel;
+    private ToDoListGUI toDoListGUI;
+    private DefaultListModel<String> defaultListModel;
     private JList<String> todoList;
 
     //Constructs the component panes of the to-do list
-    public ListPane() {
-        defaultListModel = new DefaultListModel<>();
-        todoList = new JList<>(defaultListModel);
-        todoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        todoList.setVisibleRowCount(VISIBLE_ROWS);
+    public ListPane(ToDoListGUI toDoListGUI) {
+        this.toDoListGUI = toDoListGUI;
+
+        initList();
 
         JScrollPane scrollPane = new JScrollPane(todoList);
         scrollPane.setPreferredSize(new Dimension(LIST_WIDTH, LIST_HEIGHT));
 
         add(scrollPane);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: initializes the to-do list
+    public void initList() {
+        defaultListModel = new DefaultListModel<>();
+        todoList = new JList<>(defaultListModel);
+        todoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        todoList.setVisibleRowCount(VISIBLE_ROWS);
+
+        //Enable the delete button when a task is selected
+        todoList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!todoList.isSelectionEmpty()) {
+                    toDoListGUI.passValueIsSelected(true);
+                } else if (todoList.isSelectionEmpty()) {
+                    toDoListGUI.passValueIsSelected(false);
+                }
+            }
+        });
     }
 
     //MODIFIES: this
