@@ -61,8 +61,9 @@ public class ToDoListGUI extends JFrame {
         menuBar.add(file);
         add(menuBar, BorderLayout.NORTH);
 
-        saveAddFunctionality(save);
-        loadAddFunctionality(load);
+        saveJMenuItem(save);
+        loadJMenuItem(load);
+        exitJMenuItem(exit);
     }
 
     //MODIFIES: this
@@ -82,12 +83,12 @@ public class ToDoListGUI extends JFrame {
 
     //MODIFIES: this
     //EFFECTS: saves to-do list into JSON file
-    public void saveAddFunctionality(JMenuItem save) {
+    public void saveJMenuItem(JMenuItem save) {
         save.addActionListener(new ActionListener() {
             //MODIFIES: this
-            //EFFECTS: when save menu item button is pressed, save current to-do list onto JSON file and
-            //signal that it was successfully saved.
-            //Otherwise, throws FileNotFoundException if path/file not found or file can not be read, signals to user
+            //EFFECTS: when save button is pressed, saves current to-do list onto JSON file and signals to user
+            //that to-do list was successfully saved.
+            //Otherwise, throws FileNotFoundException if path/file not found or file can not be saved, signals to user
             //that to-do list was unable to be saved.
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,7 +97,7 @@ public class ToDoListGUI extends JFrame {
                     writer.write(toDoList);
                     writer.close();
 
-                    //todo: Add JOptionPane here & delete line below
+                    //todo: Add JOptionPane here & delete line below (Need interface/abstract class for popup here?)
                     System.out.println("[SUCCESS] Saved to-do list to path: " + JSON_FILE_LOCATION);
                 } catch (FileNotFoundException exception) {
 
@@ -109,8 +110,15 @@ public class ToDoListGUI extends JFrame {
 
     //MODIFIES: this
     //EFFECTS: loads to-do list from JSON file and display contents on visual list
-    public void loadAddFunctionality(JMenuItem load) {
+    public void loadJMenuItem(JMenuItem load) {
         load.addActionListener(new ActionListener() {
+            //MODIFIES: this
+            // EFFECTS: when load button is pressed, prompts user whether to overwrite current to-do list content,
+            //          if yes - clears current list and load to-do list from JSON file and signals to user
+            //          that toDoList was successfully loaded.
+            // Otherwise, throws FileNotFoundException if path/file not found or file can not be read, signals to user
+            // that toDoList was unable to be loaded.
+            //          if no - do nothing
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -126,6 +134,19 @@ public class ToDoListGUI extends JFrame {
                     //todo: Add JOptionPane here & delete line below
                     System.out.println("[FAILURE] Unable to load to-list from path: " + JSON_FILE_LOCATION);
                 }
+            }
+        });
+    }
+
+    //MODIFIES: this
+    //EFFECTS: button to exit the application
+    public void exitJMenuItem(JMenuItem exit) {
+        exit.addActionListener(new ActionListener() {
+            //MODIFIES: this
+            //EFFECTS: when exit button is pressed, terminates the entire application
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }
