@@ -19,9 +19,10 @@ public class ToDoListGUI extends JFrame {
         super("To-Do List");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        //setMinimumSize(new Dimension(500,300));
+        //setMinimumSize(new Dimension(500,350));
         setLocationByPlatform(true);
 
+        initMenu();
         initList();
         initLowerPane();
 
@@ -30,11 +31,25 @@ public class ToDoListGUI extends JFrame {
     }
 
     //MODIFIES: this
+    //EFFECTS: initialize the menu dropdown
+    public void initMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu file = new JMenu("File");
+        JMenuItem save = new JMenuItem("Save");
+        JMenuItem load = new JMenuItem("Load");
+        file.add(save);
+        file.add(load);
+        menuBar.add(file);
+        add(menuBar, BorderLayout.NORTH);
+
+    }
+
+    //MODIFIES: this
     //EFFECTS: initialize the list pane for to-do list
     public void initList() {
         this.toDoList = new ToDoList();
         this.listPane = new ListPane(this);
-        add(listPane, BorderLayout.NORTH);
+        add(listPane, BorderLayout.CENTER);
     }
 
     //MODIFIES: this

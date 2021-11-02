@@ -3,6 +3,7 @@ package ui;
 import model.Task;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.awt.*;
 //Represents the list component of to-do list
 public class ListPane extends JPanel {
     private static final int VISIBLE_ROWS = 10;
+    private static final int BORDER_MARGIN = 10;
     private static final int LIST_WIDTH = 300;
     private static final int LIST_HEIGHT = 200;
     private ToDoListGUI toDoListGUI;
@@ -18,6 +20,16 @@ public class ListPane extends JPanel {
 
     //Constructs the component panes of the to-do list
     public ListPane(ToDoListGUI toDoListGUI) {
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
+        //The following line of code is referenced from the website:
+        //Link: https://stackoverflow.com/questions/25227777/swing-create-a-compoundborder-with-3-borders
+        setBorder(new CompoundBorder(
+                new CompoundBorder(
+                new EmptyBorder(BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN),
+                new TitledBorder(new EtchedBorder(), "To-Do List")),
+                new EmptyBorder(BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN)));
+
         this.toDoListGUI = toDoListGUI;
 
         initList();
