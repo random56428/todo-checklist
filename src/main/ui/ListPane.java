@@ -99,4 +99,9 @@ public class ListPane extends JPanel {
         return "";
     }
 
+    //EFFECTS: returns true if defaultListModel is not empty, otherwise return false
+    public boolean hasElements() {
+        return !defaultListModel.isEmpty();
+    }
+
 }

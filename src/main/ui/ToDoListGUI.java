@@ -86,8 +86,7 @@ public class ToDoListGUI extends JFrame {
     public void saveJMenuItem(JMenuItem save) {
         save.addActionListener(new ActionListener() {
             //MODIFIES: this
-            //EFFECTS: when save button is pressed, saves current to-do list onto JSON file and signals to user
-            //that to-do list was successfully saved.
+            //EFFECTS: when save button is pressed, saves current to-do list onto JSON file
             //Otherwise, throws FileNotFoundException if path/file not found or file can not be saved, signals to user
             //that to-do list was unable to be saved.
             @Override
@@ -96,13 +95,10 @@ public class ToDoListGUI extends JFrame {
                     writer.open();
                     writer.write(toDoList);
                     writer.close();
-
-                    //todo: Add JOptionPane here & delete line below (Need interface/abstract class for popup here?)
-                    System.out.println("[SUCCESS] Saved to-do list to path: " + JSON_FILE_LOCATION);
                 } catch (FileNotFoundException exception) {
-
-                    //todo: Add JOptionPane here & delete line below
-                    System.out.println("[FAILURE] Unable to save to-do list to path: " + JSON_FILE_LOCATION);
+                    JOptionPane.showMessageDialog(ToDoListGUI.this,
+                            "Unable to save to-do list to path: " + JSON_FILE_LOCATION, "To-Do List Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -113,29 +109,42 @@ public class ToDoListGUI extends JFrame {
     public void loadJMenuItem(JMenuItem load) {
         load.addActionListener(new ActionListener() {
             //MODIFIES: this
-            // EFFECTS: when load button is pressed, prompts user whether to overwrite current to-do list content,
-            //          if yes - clears current list and load to-do list from JSON file and signals to user
-            //          that toDoList was successfully loaded.
+            // EFFECTS: when load button is pressed,
+            // if there is already data in the list, prompt the user whether to overwrite current to-do list content,
+            //          if yes - clears current list and load to-do list from JSON file
+            //          if no - do nothing.
+            // If there is no data already in the list, load the data from JSON file
             // Otherwise, throws FileNotFoundException if path/file not found or file can not be read, signals to user
-            // that toDoList was unable to be loaded.
-            //          if no - do nothing
+            //          that toDoList was unable to be loaded.
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    //todo: Add JOptionPane to ask if the user wants to overwrite current to-do list with loaded data
-                    toDoList = reader.read();
-                    listPane.clearList();
-                    listPane.loadData(toDoList);
-
-                    //todo: Add JOptionPane here & delete line below
-                    System.out.println("[SUCCESS] Loaded to-do list from path: " + JSON_FILE_LOCATION);
+                    if (listPane.hasElements()) {
+                        int result = JOptionPane.showConfirmDialog(ToDoListGUI.this,
+                                "There is already data in the list. Are you sure you want to replace it?",
+                                "To-Do List", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                        if (result == JOptionPane.YES_OPTION) {
+                            loadDataToListPane();
+                        }
+                    } else {
+                        loadDataToListPane();
+                    }
                 } catch (IOException exception) {
-
-                    //todo: Add JOptionPane here & delete line below
-                    System.out.println("[FAILURE] Unable to load to-list from path: " + JSON_FILE_LOCATION);
+                    JOptionPane.showMessageDialog(ToDoListGUI.this,
+                            "Unable to load to-list from path: " + JSON_FILE_LOCATION, "To-Do List Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+    }
+
+    //MODIFIES: this
+    //EFFECTS: reads to-do list from JSON file, clears visual list, then loads data into visual list
+    //throws IOException if an error occurs when trying to read from the file
+    private void loadDataToListPane() throws IOException {
+        toDoList = reader.read();
+        listPane.clearList();
+        listPane.loadData(toDoList);
     }
 
     //MODIFIES: this
