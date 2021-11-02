@@ -47,13 +47,13 @@ public class ToDoListGUI extends JFrame {
         this.writer = new JsonWriter(JSON_FILE_LOCATION);
         JMenuBar menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
-        JMenuItem save = new JMenuItem("Save");
-        JMenuItem load = new JMenuItem("Load");
-        JMenuItem exit = new JMenuItem("Exit");
+        JMenuItem save = new JMenuItem("Save", 'S');
+        JMenuItem load = new JMenuItem("Load", 'L');
+        JMenuItem exit = new JMenuItem("Exit",'X');
         save.setIconTextGap(MENU_ITEM_GAP);
         load.setIconTextGap(MENU_ITEM_GAP);
         exit.setIconTextGap(MENU_ITEM_GAP);
-        //todo: Add Mnemonics and save/load icons to JMenuItems
+        file.setMnemonic('F');
         file.add(save);
         file.add(load);
         file.addSeparator();

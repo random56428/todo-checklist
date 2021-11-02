@@ -12,7 +12,7 @@ import java.util.Scanner;
 // This class references code from this repository
 // Link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // A user console application for to-do list
-public class ToDoConsoleApp {
+public class ToDoListConsoleApp {
     private static final String JSON_FILE_LOCATION = "./data/todolist.json";
     private static final String OPTION_ADD_TASK = "1";
     private static final String OPTION_EDIT_TASK = "2";
@@ -28,7 +28,7 @@ public class ToDoConsoleApp {
     private JsonReader reader;
     private JsonWriter writer;
 
-    public ToDoConsoleApp() {
+    public ToDoListConsoleApp() {
         launchApp();
     }
 

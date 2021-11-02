@@ -7,7 +7,7 @@ public class Main {
 
     //EFFECTS: creates a user application
     public static void main(String[] args) {
-        //new ToDoConsoleApp();
+        //new ToDoListConsoleApp();
 
         //runs code on event dispatch thread
         SwingUtilities.invokeLater(new Runnable() {
