@@ -1,12 +1,14 @@
 package ui;
 
 import model.Task;
+import model.ToDoList;
 
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.List;
 
 //Represents the list component of to-do list
 public class ListPane extends JPanel {
@@ -26,9 +28,9 @@ public class ListPane extends JPanel {
         //Link: https://stackoverflow.com/questions/25227777/swing-create-a-compoundborder-with-3-borders
         setBorder(new CompoundBorder(
                 new CompoundBorder(
-                new EmptyBorder(BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN),
-                new TitledBorder(new EtchedBorder(), "To-Do List")),
-                new EmptyBorder(BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN,BORDER_MARGIN)));
+                        new EmptyBorder(BORDER_MARGIN, BORDER_MARGIN, BORDER_MARGIN, BORDER_MARGIN),
+                        new TitledBorder(new EtchedBorder(), "To-Do List")),
+                new EmptyBorder(BORDER_MARGIN, BORDER_MARGIN, BORDER_MARGIN, BORDER_MARGIN)));
 
         this.toDoListGUI = toDoListGUI;
 
@@ -50,6 +52,8 @@ public class ListPane extends JPanel {
 
         //Enable the delete button when a task is selected
         todoList.addListSelectionListener(new ListSelectionListener() {
+            //EFFECTS: if a task is selected, pass true value to lowerPane to enable button, otherwise if
+            //task is not selected, pass false to lowerPane to disable button
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!todoList.isSelectionEmpty()) {
@@ -59,6 +63,22 @@ public class ListPane extends JPanel {
                 }
             }
         });
+    }
+
+    //MODIFIES: this
+    //EFFECTS: clears defaultListModel
+    public void clearList() {
+        this.defaultListModel.clear();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads toDoList tasks onto defaultListModel
+    public void loadData(ToDoList toDoList) {
+        List<Task> parseToStrings = toDoList.getToDoList(false);
+
+        for (Task t : parseToStrings) {
+            defaultListModel.addElement(t.getNote());
+        }
     }
 
     //MODIFIES: this
