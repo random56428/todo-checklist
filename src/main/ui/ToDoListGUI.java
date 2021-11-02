@@ -50,4 +50,14 @@ public class ToDoListGUI extends JFrame {
         this.toDoList.addTask(new Task(s));
         listPane.addToDefaultListModel(s);
     }
+
+    //MODIFIES: this
+    //EFFECTS: invokes a method from listPane; if an empty string is given as result, do nothing.
+    //Otherwise, if a string is deleted as a result, remove associated Task from toDoList
+    public void deleteTask() {
+        String result = listPane.removeSelectedItem();
+        if (!result.equals("")) {
+            toDoList.deleteTask(result);
+        }
+    }
 }

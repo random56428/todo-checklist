@@ -32,4 +32,16 @@ public class ListPane extends JPanel {
         defaultListModel.addElement(s);
     }
 
+    //MODIFIES: this
+    //EFFECTS: if a task is selected in the list, remove it and return the string. Otherwise,
+    //if nothing is selected, return "".
+    public String removeSelectedItem() {
+        if (!todoList.isSelectionEmpty()) {
+            String temp = defaultListModel.get(todoList.getSelectedIndex());
+            defaultListModel.remove(todoList.getSelectedIndex());
+            return temp;
+        }
+        return "";
+    }
+
 }
