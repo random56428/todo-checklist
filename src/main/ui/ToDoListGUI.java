@@ -26,17 +26,17 @@ public class ToDoListGUI extends JFrame {
     //Constructs the to-do list gui
     public ToDoListGUI() {
         super("To-Do List");
+        new SplashScreen(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setMinimumSize(new Dimension(500, 350));
-        setLocationByPlatform(true);
 
         initMenu();
         initList();
         initLowerPane();
 
         pack();
-        setVisible(true);
+        setLocationRelativeTo(null);
     }
 
     //MODIFIES: this
