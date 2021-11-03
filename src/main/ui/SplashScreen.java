@@ -7,7 +7,7 @@ import java.util.List;
 
 // Representation of the splash/welcome screen before loading the to-do list application
 public class SplashScreen {
-    private static final String IMAGE_LOCATION = "./data/Amiya.gif";
+    private static final String IMAGE_LOCATION = "./data/Amiya.gif"; //Credits to artist "Totouri" for gif
     private static final int BORDER_SEP = 50;
     private static final int DIALOG_WIDTH = 350;
     private static final int DIALOG_HEIGHT = 350;
@@ -57,7 +57,7 @@ public class SplashScreen {
         // If Thread.sleep throws an InterruptedException, catch it, print stack trace and continue.
         @Override
         protected Void doInBackground() {
-            final int incrementAmount = 5;
+            final int incrementAmount = 6;
             int i = progressBar.getMinimum();
             int max = progressBar.getMaximum();
 
