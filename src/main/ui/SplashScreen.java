@@ -5,7 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.List;
 
-//Representation of the splash/welcome screen before loading the to-do list application
+// Representation of the splash/welcome screen before loading the to-do list application
 public class SplashScreen {
     private static final String IMAGE_LOCATION = "./data/Amiya.gif";
     private static final int BORDER_SEP = 50;
@@ -17,7 +17,7 @@ public class SplashScreen {
     private JLabel title;
     private ToDoListGUI toDoListGUI;
 
-    //Constructs the splash screen
+    // Constructs the splash screen
     public SplashScreen(ToDoListGUI toDoListGUI) {
         this.toDoListGUI = toDoListGUI;
         progressBar = new JProgressBar(0, 5000);
@@ -47,14 +47,14 @@ public class SplashScreen {
     // This method references code from the following website links:
     // https://www.youtube.com/watch?v=X5Q-Mecu_64
     // https://stackoverflow.com/questions/29290178/gui-has-to-wait-until-splashscreen-finishes-executing
-    //Represents a swing worker thread so thread.sleep does not block EDT (GUI becomes unresponsive)
+    // Represents a swing worker thread so thread.sleep does not block EDT (GUI becomes unresponsive)
     public class Worker extends SwingWorker<Void, Integer> {
 
-        //EFFECTS: while i < max bound of progressBar increase incrementAmount while having a delay; if progressBar
-        //is 1/4 full, increase the speed to fill by incrementAmount squared. Add progress to progressBar by calling
-        //publish(i).
-        //Returns null when while loop terminates
-        //If Thread.sleep throws an InterruptedException, catch it, print stack trace and continue.
+        // EFFECTS: while i < max bound of progressBar, increase i by incrementAmount while having a delay; if
+        // progressBar is 1/4 full, increase the speed to fill by incrementAmount squared. Add progress to progressBar
+        // by calling publish(i).
+        // Returns null when while loop terminates
+        // If Thread.sleep throws an InterruptedException, catch it, print stack trace and continue.
         @Override
         protected Void doInBackground() {
             final int incrementAmount = 5;
@@ -80,16 +80,16 @@ public class SplashScreen {
             return null;
         }
 
-        //MODIFIES: this
-        //EFFECTS: sets the progress bar to the last element in the given list of integers
+        // MODIFIES: this
+        // EFFECTS: sets the progress bar to the last element in the given list of integers
         @Override
         protected void process(List<Integer> chunks) {
             progressBar.setValue(chunks.get(chunks.size() - 1));
         }
 
-        //MODIFIES: this
-        //EFFECTS: when progress bar is finished loading, set splash screen to not visible, dispose it and set
-        //toDoListGUI visible
+        // MODIFIES: this
+        // EFFECTS: when progress bar is finished loading, set splash screen to not visible, dispose it and set
+        // toDoListGUI visible
         @Override
         protected void done() {
             dialog.setVisible(false);

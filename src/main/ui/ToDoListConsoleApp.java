@@ -34,8 +34,8 @@ public class ToDoListConsoleApp {
 
     // This method references code from this repository
     // Link: https://github.students.cs.ubc.ca/CPSC210/TellerApp
-    //MODIFIES: this
-    //EFFECTS: start the application and ask for user input
+    // MODIFIES: this
+    // EFFECTS: start the application and ask for user input
     private void launchApp() {
         boolean keepLooping = true;
         String nextAction;
@@ -58,7 +58,7 @@ public class ToDoListConsoleApp {
         System.out.println("See you next time!");
     }
 
-    //EFFECTS: prints out number of options for user input
+    // EFFECTS: prints out number of options for user input
     private void displayOptions() {
         System.out.println("Please select an option:");
         System.out.println("[1] Add a task");
@@ -72,7 +72,7 @@ public class ToDoListConsoleApp {
         System.out.println("[9] Exit");
     }
 
-    //EFFECTS: displays the current to-do list elements
+    // EFFECTS: displays the current to-do list elements
     private void displayList() {
         System.out.println("Current to-do list:\n");
         System.out.println(toDoList.viewToDoList(false));
@@ -85,8 +85,8 @@ public class ToDoListConsoleApp {
         System.out.println();
     }
 
-    //MODIFIES: this
-    //EFFECTS: takes the given user input and execute methods according to number
+    // MODIFIES: this
+    // EFFECTS: takes the given user input and execute methods according to number
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void actionCenter(String action) {
         switch (action) {
@@ -120,8 +120,8 @@ public class ToDoListConsoleApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: add a task to the to-do list
+    // MODIFIES: this
+    // EFFECTS: add a task to the to-do list
     private void addATask() {
         System.out.println("[ADD] Enter your task to add:");
         String userTask = sc.nextLine();
@@ -129,8 +129,8 @@ public class ToDoListConsoleApp {
         System.out.println("[SUCCESS] Successfully added task\n");
     }
 
-    //MODIFIES: this
-    //EFFECTS: edits a task in the to-do list
+    // MODIFIES: this
+    // EFFECTS: edits a task in the to-do list
     private void editATask() {
         System.out.println("[EDIT] Please type the task to edit:");
         String taskToChange = sc.nextLine();
@@ -145,8 +145,8 @@ public class ToDoListConsoleApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: deletes a task from to-do list
+    // MODIFIES: this
+    // EFFECTS: deletes a task from to-do list
     private void deleteATask() {
         System.out.println("[DELETE] Please type the task to delete:");
         boolean result = toDoList.deleteTask(sc.nextLine());
@@ -158,8 +158,8 @@ public class ToDoListConsoleApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: checks a task for completion and move it to the completed list
+    // MODIFIES: this
+    // EFFECTS: checks a task for completion and move it to the completed list
     private void checkATask() {
         System.out.println("[CHECK] Please type the task to check:");
         boolean result = toDoList.checkTask(sc.nextLine());
@@ -171,8 +171,8 @@ public class ToDoListConsoleApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: unchecks a task and move it back to to-do list
+    // MODIFIES: this
+    // EFFECTS: unchecks a task and move it back to to-do list
     private void uncheckATask() {
         System.out.println("[UNCHECK] Please type the task to uncheck:");
         boolean result = toDoList.uncheckTask(sc.nextLine());
@@ -184,15 +184,15 @@ public class ToDoListConsoleApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: clears the completed list
+    // MODIFIES: this
+    // EFFECTS: clears the completed list
     private void clearCompleteList() {
         toDoList.deleteAllCompleteTask();
         System.out.println("[SUCCESS] Successfully cleared the completed list!\n");
     }
 
-    //MODIFIES: this
-    //EFFECTS: initialize all local fields
+    // MODIFIES: this
+    // EFFECTS: initialize all local fields
     private void init() {
         this.toDoList = new ToDoList();
         this.sc = new Scanner(System.in);
@@ -200,7 +200,7 @@ public class ToDoListConsoleApp {
         this.writer = new JsonWriter(JSON_FILE_LOCATION);
     }
 
-    //EFFECTS: saves to-do list data onto file
+    // EFFECTS: saves to-do list data onto file
     private void saveToDoList() {
         try {
             writer.open();
@@ -214,8 +214,8 @@ public class ToDoListConsoleApp {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: loads to-do list from file
+    // MODIFIES: this
+    // EFFECTS: loads to-do list from file
     private void loadToDoList() {
         try {
             toDoList = reader.read();

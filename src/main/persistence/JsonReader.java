@@ -17,21 +17,21 @@ import java.util.stream.Stream;
 public class JsonReader {
     private String source;
 
-    //EFFECTS: constructs a reader that reads file from specified source
+    // EFFECTS: constructs a reader that reads file from specified source
     public JsonReader(String source) {
         this.source = source;
     }
 
-    //EFFECTS: reads to-do list from source file and returns it,
-    //throws IOException if an error occurs when trying to read from the file
+    // EFFECTS: reads to-do list from source file and returns it,
+    // throws IOException if an error occurs when trying to read from the file
     public ToDoList read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseToDoList(jsonObject);
     }
 
-    //EFFECTS: reads source file as string and returns it
-    //throws IOException if an error occurs while opening file
+    // EFFECTS: reads source file as string and returns it
+    // throws IOException if an error occurs while opening file
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
@@ -42,15 +42,15 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    //EFFECTS: parses to-do list from json object and returns it
+    // EFFECTS: parses to-do list from json object and returns it
     private ToDoList parseToDoList(JSONObject jsonObject) {
         ToDoList td = new ToDoList();
         addToDoList(td, jsonObject);
         return td;
     }
 
-    //MODIFIES: td
-    //EFFECTS: parses to-do list from json object and adds them to todolist
+    // MODIFIES: td
+    // EFFECTS: parses to-do list from json object and adds them to todolist
     private void addToDoList(ToDoList td, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("todolist");
         for (Object json : jsonArray) {
@@ -59,8 +59,8 @@ public class JsonReader {
         }
     }
 
-    //MODIFIES: td
-    //EFFECTS: parses individual tasks from json object and adds it to todolist
+    // MODIFIES: td
+    // EFFECTS: parses individual tasks from json object and adds it to todolist
     private void addToDoListTask(ToDoList td, JSONObject jsonObject) {
         String note = jsonObject.getString("task");
         Boolean checked = jsonObject.getBoolean("check");

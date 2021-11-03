@@ -14,7 +14,7 @@ import java.io.IOException;
 
 // This class references code from this repository
 // Link: https://github.students.cs.ubc.ca/CPSC210/C3-LectureLabStarter
-//This class represents the main window of the to-do list application
+// This class represents the main window of the to-do list application
 public class ToDoListGUI extends JFrame {
     private static final String JSON_FILE_LOCATION = "./data/todolist.json";
     private JsonReader reader;
@@ -23,7 +23,7 @@ public class ToDoListGUI extends JFrame {
     private ListPane listPane;
     private LowerPane lowerPane;
 
-    //Constructs the to-do list gui
+    // Constructs the to-do list gui
     public ToDoListGUI() {
         super("To-Do List");
         new SplashScreen(this);
@@ -39,8 +39,8 @@ public class ToDoListGUI extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    //MODIFIES: this
-    //EFFECTS: initialize the menu dropdown
+    // MODIFIES: this
+    // EFFECTS: initialize the menu dropdown
     public void initMenu() {
         final int MENU_ITEM_GAP = 20;
         this.reader = new JsonReader(JSON_FILE_LOCATION);
@@ -66,29 +66,29 @@ public class ToDoListGUI extends JFrame {
         exitJMenuItem(exit);
     }
 
-    //MODIFIES: this
-    //EFFECTS: initialize the list pane for to-do list
+    // MODIFIES: this
+    // EFFECTS: initialize the list pane for to-do list
     public void initList() {
         this.toDoList = new ToDoList();
         this.listPane = new ListPane(this);
         add(listPane, BorderLayout.CENTER);
     }
 
-    //MODIFIES: this
-    //EFFECTS: initialize the bottom portion panel with functionality
+    // MODIFIES: this
+    // EFFECTS: initialize the bottom portion panel with functionality
     public void initLowerPane() {
         this.lowerPane = new LowerPane(this);
         add(lowerPane, BorderLayout.SOUTH);
     }
 
-    //MODIFIES: this
-    //EFFECTS: saves to-do list into JSON file
+    // MODIFIES: this
+    // EFFECTS: saves to-do list into JSON file
     public void saveJMenuItem(JMenuItem save) {
         save.addActionListener(new ActionListener() {
-            //MODIFIES: this
-            //EFFECTS: when save button is pressed, saves current to-do list onto JSON file
-            //Otherwise, throws FileNotFoundException if path/file not found or file can not be saved, signals to user
-            //that to-do list was unable to be saved.
+            // MODIFIES: this
+            // EFFECTS: when save button is pressed, saves current to-do list onto JSON file
+            // Otherwise, throws FileNotFoundException if path/file not found or file can not be saved, signals to user
+            // that to-do list was unable to be saved.
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -104,11 +104,11 @@ public class ToDoListGUI extends JFrame {
         });
     }
 
-    //MODIFIES: this
-    //EFFECTS: loads to-do list from JSON file and display contents on visual list
+    // MODIFIES: this
+    // EFFECTS: loads to-do list from JSON file and display contents on visual list
     public void loadJMenuItem(JMenuItem load) {
         load.addActionListener(new ActionListener() {
-            //MODIFIES: this
+            // MODIFIES: this
             // EFFECTS: when load button is pressed,
             // if there is already data in the list, prompt the user whether to overwrite current to-do list content,
             //          if yes - clears current list and load to-do list from JSON file
@@ -138,21 +138,21 @@ public class ToDoListGUI extends JFrame {
         });
     }
 
-    //MODIFIES: this
-    //EFFECTS: reads to-do list from JSON file, clears visual list, then loads data into visual list
-    //throws IOException if an error occurs when trying to read from the file
+    // MODIFIES: this
+    // EFFECTS: reads to-do list from JSON file, clears visual list, then loads data into visual list
+    // throws IOException if an error occurs when trying to read from the file
     private void loadDataToListPane() throws IOException {
         toDoList = reader.read();
         listPane.clearList();
         listPane.loadData(toDoList);
     }
 
-    //MODIFIES: this
-    //EFFECTS: button to exit the application
+    // MODIFIES: this
+    // EFFECTS: button to exit the application
     public void exitJMenuItem(JMenuItem exit) {
         exit.addActionListener(new ActionListener() {
-            //MODIFIES: this
-            //EFFECTS: when exit button is pressed, terminates the entire application
+            // MODIFIES: this
+            // EFFECTS: when exit button is pressed, terminates the entire application
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -160,16 +160,16 @@ public class ToDoListGUI extends JFrame {
         });
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds task to to-do list, calls method on listPane to add task to visual list
+    // MODIFIES: this
+    // EFFECTS: adds task to to-do list, calls method on listPane to add task to visual list
     public void addTask(String s) {
         this.toDoList.addTask(new Task(s));
         listPane.addToDefaultListModel(s);
     }
 
-    //MODIFIES: this
-    //EFFECTS: invokes a method from listPane; if an empty string is given as result, do nothing.
-    //Otherwise, if a string is deleted as a result, remove associated Task from toDoList
+    // MODIFIES: this
+    // EFFECTS: invokes a method from listPane; if an empty string is given as result, do nothing.
+    // Otherwise, if a string is deleted as a result, remove associated Task from toDoList
     public void deleteTask() {
         String result = listPane.removeSelectedItem();
         if (!result.equals("")) {
@@ -177,7 +177,7 @@ public class ToDoListGUI extends JFrame {
         }
     }
 
-    //EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in list
+    // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in list
     public void passValueIsSelected(boolean isSelected) {
         lowerPane.enableDeleteButton(isSelected);
     }

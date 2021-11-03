@@ -7,6 +7,5 @@ import org.json.JSONObject;
 // Represents an interface that allows data to be written and translated
 public interface Writable {
 
-    //EFFECTS: returns this as json object
     JSONObject toJson();
 }

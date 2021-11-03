@@ -15,27 +15,27 @@ public class JsonWriter {
     private PrintWriter writer;
     private String destination;
 
-    //EFFECTS: construct a writer that writes to the destination file
+    // EFFECTS: construct a writer that writes to the destination file
     public JsonWriter(String destination) {
         this.destination = destination;
     }
 
-    //MODIFIES: this
-    //EFFECTS: opens writer at destination,
-    //throws FileNotFoundException if file at destination does not exist or cannot be opened
+    // MODIFIES: this
+    // EFFECTS: opens writer at destination,
+    // throws FileNotFoundException if file at destination does not exist or cannot be opened
     public void open() throws FileNotFoundException {
         writer = new PrintWriter(new File(destination));
     }
 
-    //MODIFIES: this
-    //EFFECTS: writes to-do list as json representation onto a file
+    // MODIFIES: this
+    // EFFECTS: writes to-do list as json representation onto a file
     public void write(ToDoList td) {
         JSONObject json = td.toJson();
         writer.print(json.toString(JSON_TAB_INDENTATION));
     }
 
-    //MODIFIES: this
-    //EFFECTS: closes writer
+    // MODIFIES: this
+    // EFFECTS: closes writer
     public void close() {
         writer.close();
     }
