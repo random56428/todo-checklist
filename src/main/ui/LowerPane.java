@@ -29,6 +29,8 @@ public class LowerPane extends JPanel {
         add(deleteButton);
     }
 
+    // This method references code from the website:
+    // Link: https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
     // MODIFIES: this
     // EFFECTS: initializes text field
     public void initTextField() {
