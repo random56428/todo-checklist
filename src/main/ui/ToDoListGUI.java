@@ -122,7 +122,7 @@ public class ToDoListGUI extends JFrame {
                     if (listPane.hasElements()) {
                         int result = JOptionPane.showConfirmDialog(ToDoListGUI.this,
                                 "There is already data in the list. Are you sure you want to replace it?",
-                                "To-Do List", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                                "Load File", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
                         if (result == JOptionPane.YES_OPTION) {
                             loadDataToListPane();
                         }
@@ -177,9 +177,24 @@ public class ToDoListGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: prompts user to edit a task to specified text in dialog
+    public void editTask() {
+        String selectedValue = listPane.getCurrentSelectedTask();
+        String newValue = (String) JOptionPane.showInputDialog(ToDoListGUI.this,
+                "Edit your task note to:", "Edit", JOptionPane.PLAIN_MESSAGE, null,
+                null, selectedValue);
+        if (newValue != null && !selectedValue.equals(newValue)) {
+            toDoList.editTask(selectedValue, newValue);
+            listPane.editSelectedItem(newValue);
+        }
+
+    }
+
     // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in list
     public void passValueIsSelected(boolean isSelected) {
         lowerPane.enableDeleteButton(isSelected);
+        lowerPane.enableEditButton(isSelected);
     }
 
 }

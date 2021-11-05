@@ -104,4 +104,15 @@ public class ListPane extends JPanel {
         return !defaultListModel.isEmpty();
     }
 
+    // EFFECTS: returns currently selected value
+    public String getCurrentSelectedTask() {
+        return todoList.getSelectedValue();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: updates current selected task note to given newValue
+    public void editSelectedItem(String newValue) {
+        defaultListModel.setElementAt(newValue, todoList.getSelectedIndex());
+    }
+
 }

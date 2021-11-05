@@ -13,6 +13,7 @@ public class LowerPane extends JPanel {
     private JTextField textField;
     private JButton addButton;
     private JButton deleteButton;
+    private JButton editButton;
 
     // Constructs the text field and buttons
     public LowerPane(ToDoListGUI toDoListGUI) {
@@ -23,10 +24,12 @@ public class LowerPane extends JPanel {
         initTextField();
         initAddButton();
         initDeleteButton();
+        initEditButton();
 
         add(textField);
         add(addButton);
         add(deleteButton);
+        add(editButton);
     }
 
     // This method references code from the website:
@@ -96,10 +99,32 @@ public class LowerPane extends JPanel {
     }
 
     // MODIFIES: this
+    // EFFECTS: initializes edit button
+    private void initEditButton() {
+        this.editButton = new JButton("Edit");
+        editButton.setEnabled(false);
+        editButton.addActionListener(new ActionListener() {
+            // EFFECTS: when edit button is pressed, calls editTask in toDoListGUI to show option pane
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toDoListGUI.editTask();
+            }
+        });
+    }
+
+    // MODIFIES: this
     // EFFECTS: if passed value is true - a task is selected in the list, enable delete button,
     // otherwise, if false - a task is not selected in list, disable delete button
     public void enableDeleteButton(boolean isEnabled) {
         this.deleteButton.setEnabled(isEnabled);
     }
+
+    // MODIFIES: this
+    // EFFECTS: if passed value is true - a task is selected in the list, enable edit button,
+    // otherwise, if false - a task is not selected in list, disable edit button
+    public void enableEditButton(boolean isEnabled) {
+        this.editButton.setEnabled(isEnabled);
+    }
+
 
 }
