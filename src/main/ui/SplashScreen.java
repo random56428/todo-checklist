@@ -57,7 +57,7 @@ public class SplashScreen {
         // If Thread.sleep throws an InterruptedException, catch it, print stack trace and continue.
         @Override
         protected Void doInBackground() {
-            final int incrementAmount = 6;
+            final int incrementAmount = 7;
             int i = progressBar.getMinimum();
             int max = progressBar.getMaximum();
 
