@@ -15,6 +15,7 @@ public class LowerPane extends JPanel {
     private JButton deleteButton;
     private JButton editButton;
     private JButton checkButton;
+    private JButton uncheckButton;
 
     // Constructs the text field and buttons
     public LowerPane(ToDoListGUI toDoListGUI) {
@@ -27,12 +28,14 @@ public class LowerPane extends JPanel {
         initDeleteButton();
         initEditButton();
         initCheckButton();
+        initUncheckButton();
 
         add(textField);
         add(addButton);
         add(deleteButton);
         add(editButton);
         add(checkButton);
+        add(uncheckButton);
     }
 
     // This method references code from the website:
@@ -130,12 +133,33 @@ public class LowerPane extends JPanel {
     }
 
     // MODIFIES: this
-    // EFFECTS: if passed value is true - a task is selected in the list, enable delete/edit/check buttons,
+    // EFFECTS: initializes uncheck button
+    private void initUncheckButton() {
+        this.uncheckButton = new JButton("Uncheck");
+        uncheckButton.setEnabled(false);
+        uncheckButton.addActionListener(new ActionListener() {
+            // EFFECTS: when uncheck button is pressed, calls uncheckTask in toDoListGUI
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toDoListGUI.uncheckTask();
+            }
+        });
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if passed value is true - a task is selected in the to-do list, enable delete/edit/check buttons,
     // otherwise, if false - a task is not selected in list, disable the buttons
     public void enableButtons(boolean isEnabled) {
         this.deleteButton.setEnabled(isEnabled);
         this.editButton.setEnabled(isEnabled);
         this.checkButton.setEnabled(isEnabled);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if passed value is true - a task is selected in completed list, enable uncheck button, otherwise
+    // disable it
+    public void enableUncheckButton(boolean isEnabled) {
+        this.uncheckButton.setEnabled(isEnabled);
     }
 
 }

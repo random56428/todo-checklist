@@ -60,13 +60,13 @@ public class ListPane extends JPanel {
 
     // MODIFIES: this
     // EFFECTS: initializes the to-do list
-    public void initToDoList() {
+    private void initToDoList() {
         defaultToDoListModel = new DefaultListModel<>();
         todoList = new JList<>(defaultToDoListModel);
         todoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         todoList.setVisibleRowCount(VISIBLE_ROWS);
 
-        // Enable the delete button when a task is selected
+        // Enable buttons when a task is selected
         todoList.addListSelectionListener(new ListSelectionListener() {
             // EFFECTS: if a task is selected, pass true value to lowerPane to enable button, otherwise if
             // task is not selected, pass false to lowerPane to disable button
@@ -86,11 +86,20 @@ public class ListPane extends JPanel {
 
     // MODIFIES: this
     // EFFECTS: initializes the completed list
-    public void initCompletedList() {
+    private void initCompletedList() {
         defaultCompletedListModel = new DefaultListModel<>();
         completedList = new JList<>(defaultCompletedListModel);
         completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         completedList.setVisibleRowCount(VISIBLE_ROWS);
+
+        // Enable uncheck button when a task is selected
+        completedList.addListSelectionListener(e -> {
+            if (!completedList.isSelectionEmpty()) {
+                toDoListGUI.passValueIsSelectedForUncheck(true);
+            } else if (completedList.isSelectionEmpty()) {
+                toDoListGUI.passValueIsSelectedForUncheck(false);
+            }
+        });
 
         completedListScrollPane = new JScrollPane(completedList);
         completedListScrollPane.setPreferredSize(new Dimension(LIST_WIDTH, LIST_HEIGHT));
@@ -141,9 +150,14 @@ public class ListPane extends JPanel {
         return !defaultToDoListModel.isEmpty() || !defaultCompletedListModel.isEmpty();
     }
 
-    // EFFECTS: returns current selected value in to-do list
-    public String getCurrentSelectedTask() {
-        return todoList.getSelectedValue();
+    // EFFECTS: if isCompletedList is true, return current selected value in completed list,
+    // otherwise, return current selected value in to-do list
+    public String getCurrentSelectedTask(boolean isCompletedList) {
+        if (isCompletedList) {
+            return completedList.getSelectedValue();
+        } else {
+            return todoList.getSelectedValue();
+        }
     }
 
     // MODIFIES: this
@@ -159,5 +173,14 @@ public class ListPane extends JPanel {
         defaultToDoListModel.removeElementAt(todoList.getSelectedIndex());
         defaultCompletedListModel.addElement(temp);
     }
+
+    // MODIFIES: this
+    // EFFECTS: unchecks selected task from completed list and moves it to to-do list
+    public void uncheckSelectedItem() {
+        String temp = defaultCompletedListModel.getElementAt(completedList.getSelectedIndex());
+        defaultCompletedListModel.removeElementAt(completedList.getSelectedIndex());
+        defaultToDoListModel.addElement(temp);
+    }
+
 
 }

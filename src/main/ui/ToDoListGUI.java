@@ -29,13 +29,13 @@ public class ToDoListGUI extends JFrame {
         new SplashScreen(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setMinimumSize(new Dimension(500, 350));
 
         initMenu();
         initList();
         initLowerPane();
 
         pack();
+        setMinimumSize(this.getSize());
         setLocationRelativeTo(null);
     }
 
@@ -181,7 +181,7 @@ public class ToDoListGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: prompts user to edit a task to specified text in dialog
     public void editTask() {
-        String selectedValue = listPane.getCurrentSelectedTask();
+        String selectedValue = listPane.getCurrentSelectedTask(false);
         String newValue = (String) JOptionPane.showInputDialog(ToDoListGUI.this,
                 "Edit your task note to:", "Edit", JOptionPane.PLAIN_MESSAGE, null,
                 null, selectedValue);
@@ -194,14 +194,27 @@ public class ToDoListGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: checks the selected task in listPane and check it as completed
     public void checkTask() {
-        String selectedValue = listPane.getCurrentSelectedTask();
+        String selectedValue = listPane.getCurrentSelectedTask(false);
         toDoList.checkTask(selectedValue);
         listPane.checkSelectedItem();
     }
 
-    // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in list
+    // MODIFIES: this
+    // EFFECTS: unchecks the selected task in listPane and uncheck it, move it back from completed list to to-do list
+    public void uncheckTask() {
+        String selectedValue = listPane.getCurrentSelectedTask(true);
+        toDoList.uncheckTask(selectedValue);
+        listPane.uncheckSelectedItem();
+    }
+
+    // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in to-do list
     public void passValueIsSelected(boolean isSelected) {
         lowerPane.enableButtons(isSelected);
+    }
+
+    // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in completed list
+    public void passValueIsSelectedForUncheck(boolean isSelected) {
+        lowerPane.enableUncheckButton(isSelected);
     }
 
 }
