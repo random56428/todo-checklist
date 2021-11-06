@@ -10,7 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-// Represents the list component of to-do list
+// Represents the list component of to-do list and completed list
 public class ListPane extends JPanel {
     private static final int VISIBLE_ROWS = 10;
     private static final int BORDER_MARGIN = 10;
@@ -24,7 +24,7 @@ public class ListPane extends JPanel {
     private JScrollPane todoListScrollPane;
     private JScrollPane completedListScrollPane;
 
-    // Constructs the component panes of the to-do list
+    // EFFECTS: Constructs the component panes of the to-do list and completed list
     public ListPane(ToDoListGUI toDoListGUI) {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.toDoListGUI = toDoListGUI;
@@ -97,29 +97,35 @@ public class ListPane extends JPanel {
     }
 
     // MODIFIES: this
-    // EFFECTS: clears defaultListModel
+    // EFFECTS: clears defaultToDoListModel and defaultCompletedListModel
     public void clearList() {
         this.defaultToDoListModel.clear();
+        this.defaultCompletedListModel.clear();
     }
 
     // MODIFIES: this
-    // EFFECTS: loads toDoList tasks onto defaultListModel
+    // EFFECTS: loads toDoList tasks into defaultToDoListModel and defaultCompletedListModel
     public void loadData(ToDoList toDoList) {
-        List<Task> parseToStrings = toDoList.getToDoList(false);
+        List<Task> parseToStringsToDoList = toDoList.getToDoList(false);
+        List<Task> parseToStringsCompletedList = toDoList.getToDoList(true);
 
-        for (Task t : parseToStrings) {
+        for (Task t : parseToStringsToDoList) {
             defaultToDoListModel.addElement(t.getNote());
+        }
+
+        for (Task t : parseToStringsCompletedList) {
+            defaultCompletedListModel.addElement(t.getNote());
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: adds string s to defaultListModel
+    // EFFECTS: adds string s to defaultToDoListModel
     public void addToDefaultListModel(String s) {
         defaultToDoListModel.addElement(s);
     }
 
     // MODIFIES: this
-    // EFFECTS: if a task is selected in the list, remove it and return the string. Otherwise,
+    // EFFECTS: if a task is selected in the to-do list, remove it and return the string. Otherwise,
     // if nothing is selected, return "".
     public String removeSelectedItem() {
         if (!todoList.isSelectionEmpty()) {
@@ -130,18 +136,18 @@ public class ListPane extends JPanel {
         return "";
     }
 
-    // EFFECTS: returns true if defaultListModel is not empty, otherwise return false
+    // EFFECTS: returns true if defaultToDoListModel or defaultCompletedListModel is not empty, otherwise return false
     public boolean hasElements() {
-        return !defaultToDoListModel.isEmpty();
+        return !defaultToDoListModel.isEmpty() || !defaultCompletedListModel.isEmpty();
     }
 
-    // EFFECTS: returns currently selected value
+    // EFFECTS: returns current selected value in to-do list
     public String getCurrentSelectedTask() {
         return todoList.getSelectedValue();
     }
 
     // MODIFIES: this
-    // EFFECTS: updates current selected task note to given newValue
+    // EFFECTS: updates current selected task note in to-do list to given newValue
     public void editSelectedItem(String newValue) {
         defaultToDoListModel.setElementAt(newValue, todoList.getSelectedIndex());
     }

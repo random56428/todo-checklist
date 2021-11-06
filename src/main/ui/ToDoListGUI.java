@@ -23,7 +23,7 @@ public class ToDoListGUI extends JFrame {
     private ListPane listPane;
     private LowerPane lowerPane;
 
-    // Constructs the to-do list gui
+    //EFFECTS: Constructs the to-do list gui
     public ToDoListGUI() {
         super("To-Do List");
         new SplashScreen(this);
@@ -139,7 +139,8 @@ public class ToDoListGUI extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: reads to-do list from JSON file, clears visual list, then loads data into visual list
+    // EFFECTS: reads to-do list (includes completed list) from JSON file, clears visual list, then loads data
+    // into the visual list in listPane
     // throws IOException if an error occurs when trying to read from the file
     private void loadDataToListPane() throws IOException {
         toDoList = reader.read();
