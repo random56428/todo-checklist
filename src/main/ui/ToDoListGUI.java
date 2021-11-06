@@ -41,7 +41,7 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: initialize the menu dropdown
-    public void initMenu() {
+    private void initMenu() {
         final int MENU_ITEM_GAP = 20;
         this.reader = new JsonReader(JSON_FILE_LOCATION);
         this.writer = new JsonWriter(JSON_FILE_LOCATION);
@@ -68,7 +68,7 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: initialize the list pane for to-do list
-    public void initList() {
+    private void initList() {
         this.toDoList = new ToDoList();
         this.listPane = new ListPane(this);
         add(listPane, BorderLayout.CENTER);
@@ -76,7 +76,7 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: initialize the bottom portion panel with functionality
-    public void initLowerPane() {
+    private void initLowerPane() {
         this.lowerPane = new LowerPane(this);
         add(lowerPane, BorderLayout.SOUTH);
     }
@@ -188,13 +188,19 @@ public class ToDoListGUI extends JFrame {
             toDoList.editTask(selectedValue, newValue);
             listPane.editSelectedItem(newValue);
         }
+    }
 
+    // MODIFIES: this
+    // EFFECTS: checks the selected task in listPane and check it as completed
+    public void checkTask() {
+        String selectedValue = listPane.getCurrentSelectedTask();
+        toDoList.checkTask(selectedValue);
+        listPane.checkSelectedItem();
     }
 
     // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in list
     public void passValueIsSelected(boolean isSelected) {
-        lowerPane.enableDeleteButton(isSelected);
-        lowerPane.enableEditButton(isSelected);
+        lowerPane.enableButtons(isSelected);
     }
 
 }

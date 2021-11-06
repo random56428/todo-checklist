@@ -88,7 +88,7 @@ public class ListPane extends JPanel {
     // EFFECTS: initializes the completed list
     public void initCompletedList() {
         defaultCompletedListModel = new DefaultListModel<>();
-        completedList = new JList<>();
+        completedList = new JList<>(defaultCompletedListModel);
         completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         completedList.setVisibleRowCount(VISIBLE_ROWS);
 
@@ -144,6 +144,14 @@ public class ListPane extends JPanel {
     // EFFECTS: updates current selected task note to given newValue
     public void editSelectedItem(String newValue) {
         defaultToDoListModel.setElementAt(newValue, todoList.getSelectedIndex());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: checks selected task from to-do list and moves it to completed list
+    public void checkSelectedItem() {
+        String temp = defaultToDoListModel.getElementAt(todoList.getSelectedIndex());
+        defaultToDoListModel.removeElementAt(todoList.getSelectedIndex());
+        defaultCompletedListModel.addElement(temp);
     }
 
 }
