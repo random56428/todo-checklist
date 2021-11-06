@@ -5,6 +5,8 @@ import model.ToDoList;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -92,6 +94,15 @@ public class ListPane extends JPanel {
         completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         completedList.setVisibleRowCount(VISIBLE_ROWS);
 
+        addListeners();
+
+        completedListScrollPane = new JScrollPane(completedList);
+        completedListScrollPane.setPreferredSize(new Dimension(LIST_WIDTH, LIST_HEIGHT));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds listeners for completedList and defaultCompletedListModel
+    private void addListeners() {
         // Enable uncheck button when a task is selected
         completedList.addListSelectionListener(e -> {
             if (!completedList.isSelectionEmpty()) {
@@ -101,14 +112,39 @@ public class ListPane extends JPanel {
             }
         });
 
-        completedListScrollPane = new JScrollPane(completedList);
-        completedListScrollPane.setPreferredSize(new Dimension(LIST_WIDTH, LIST_HEIGHT));
+        // Enable clear all button when completedList is not empty
+        defaultCompletedListModel.addListDataListener(new ListDataListener() {
+            // EFFECTS: calls contentsChanged when element is added
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+                contentsChanged(e);
+            }
+
+            // EFFECTS: calls contentsChanged when element is removed
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+                contentsChanged(e);
+            }
+
+            // EFFECTS: if defaultCompletedListModel is not empty, pass false to ToDoListGUI to enable clear all button,
+            // otherwise, pass true
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                toDoListGUI.passValueIsCompletedListEmpty(defaultCompletedListModel.isEmpty());
+            }
+        });
     }
 
     // MODIFIES: this
     // EFFECTS: clears defaultToDoListModel and defaultCompletedListModel
     public void clearList() {
         this.defaultToDoListModel.clear();
+        this.defaultCompletedListModel.clear();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clears only the defaultCompletedListModel
+    public void clearCompletedList() {
         this.defaultCompletedListModel.clear();
     }
 

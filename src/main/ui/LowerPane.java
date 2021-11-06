@@ -16,8 +16,9 @@ public class LowerPane extends JPanel {
     private JButton editButton;
     private JButton checkButton;
     private JButton uncheckButton;
+    private JButton clearAll;
 
-    // Constructs the text field and buttons
+    // EFFECTS: Constructs the text field and buttons, then add them to JPanel
     public LowerPane(ToDoListGUI toDoListGUI) {
         super(new FlowLayout());
 
@@ -29,6 +30,7 @@ public class LowerPane extends JPanel {
         initEditButton();
         initCheckButton();
         initUncheckButton();
+        initClearAllButton();
 
         add(textField);
         add(addButton);
@@ -36,6 +38,7 @@ public class LowerPane extends JPanel {
         add(editButton);
         add(checkButton);
         add(uncheckButton);
+        add(clearAll);
     }
 
     // This method references code from the website:
@@ -44,7 +47,7 @@ public class LowerPane extends JPanel {
     // EFFECTS: initializes text field
     private void initTextField() {
         this.textField = new JTextField();
-        textField.setPreferredSize(new Dimension(200,30));
+        textField.setPreferredSize(new Dimension(200, 30));
 
         textField.getDocument().addDocumentListener(new DocumentListener() {
             // EFFECTS: calls changedUpdate when text is added
@@ -147,6 +150,25 @@ public class LowerPane extends JPanel {
     }
 
     // MODIFIES: this
+    // EFFECTS: initializes clear all button
+    private void initClearAllButton() {
+        this.clearAll = new JButton("Clear All");
+        clearAll.setEnabled(false);
+        clearAll.addActionListener(new ActionListener() {
+            // EFFECTS: when clear all button is pressed, prompt user to confirm
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(toDoListGUI,
+                        "Are you sure you want to delete all completed tasks?",
+                        "Clear All Completed Tasks", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_OPTION) {
+                    toDoListGUI.clearAllCompletedTasks();
+                }
+            }
+        });
+    }
+
+    // MODIFIES: this
     // EFFECTS: if passed value is true - a task is selected in the to-do list, enable delete/edit/check buttons,
     // otherwise, if false - a task is not selected in list, disable the buttons
     public void enableButtons(boolean isEnabled) {
@@ -160,6 +182,13 @@ public class LowerPane extends JPanel {
     // disable it
     public void enableUncheckButton(boolean isEnabled) {
         this.uncheckButton.setEnabled(isEnabled);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: if passed value is true - there is no element in the completed list, disable the clear all button,
+    // otherwise, enable the clear all button
+    public void enableClearAllButton(boolean isEmpty) {
+        this.clearAll.setEnabled(!isEmpty);
     }
 
 }

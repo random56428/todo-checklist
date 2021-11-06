@@ -49,7 +49,7 @@ public class ToDoListGUI extends JFrame {
         JMenu file = new JMenu("File");
         JMenuItem save = new JMenuItem("Save", 'S');
         JMenuItem load = new JMenuItem("Load", 'L');
-        JMenuItem exit = new JMenuItem("Exit",'X');
+        JMenuItem exit = new JMenuItem("Exit", 'X');
         save.setIconTextGap(MENU_ITEM_GAP);
         load.setIconTextGap(MENU_ITEM_GAP);
         exit.setIconTextGap(MENU_ITEM_GAP);
@@ -81,7 +81,7 @@ public class ToDoListGUI extends JFrame {
         add(lowerPane, BorderLayout.SOUTH);
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, save
     // EFFECTS: saves to-do list into JSON file
     public void saveJMenuItem(JMenuItem save) {
         save.addActionListener(new ActionListener() {
@@ -104,7 +104,7 @@ public class ToDoListGUI extends JFrame {
         });
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, load
     // EFFECTS: loads to-do list from JSON file and display contents on visual list
     public void loadJMenuItem(JMenuItem load) {
         load.addActionListener(new ActionListener() {
@@ -148,7 +148,7 @@ public class ToDoListGUI extends JFrame {
         listPane.loadData(toDoList);
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, exit
     // EFFECTS: button to exit the application
     public void exitJMenuItem(JMenuItem exit) {
         exit.addActionListener(new ActionListener() {
@@ -207,6 +207,13 @@ public class ToDoListGUI extends JFrame {
         listPane.uncheckSelectedItem();
     }
 
+    // MODIFIES: this
+    // EFFECTS: clears entire completed list in ToDoList and in visual list
+    public void clearAllCompletedTasks() {
+        toDoList.deleteAllCompleteTask();
+        listPane.clearCompletedList();
+    }
+
     // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in to-do list
     public void passValueIsSelected(boolean isSelected) {
         lowerPane.enableButtons(isSelected);
@@ -215,6 +222,11 @@ public class ToDoListGUI extends JFrame {
     // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether a task is selected in completed list
     public void passValueIsSelectedForUncheck(boolean isSelected) {
         lowerPane.enableUncheckButton(isSelected);
+    }
+
+    // EFFECTS: passes the boolean invoked by listPane to lowerPane of whether completed list is empty or not
+    public void passValueIsCompletedListEmpty(boolean isEmpty) {
+        lowerPane.enableClearAllButton(isEmpty);
     }
 
 }
