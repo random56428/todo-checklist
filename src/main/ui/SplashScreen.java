@@ -17,7 +17,7 @@ public class SplashScreen {
     private JLabel title;
     private ToDoListGUI toDoListGUI;
 
-    // Constructs the splash screen
+    // EFFECTS: Constructs the splash screen
     public SplashScreen(ToDoListGUI toDoListGUI) {
         this.toDoListGUI = toDoListGUI;
         progressBar = new JProgressBar(0, 5000);

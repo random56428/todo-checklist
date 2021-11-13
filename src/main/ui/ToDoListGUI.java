@@ -45,25 +45,64 @@ public class ToDoListGUI extends JFrame {
         final int MENU_ITEM_GAP = 20;
         this.reader = new JsonReader(JSON_FILE_LOCATION);
         this.writer = new JsonWriter(JSON_FILE_LOCATION);
+
         JMenuBar menuBar = new JMenuBar();
         JMenu file = new JMenu("File");
+        JMenu view = new JMenu("View");
+        JMenu zoom = new JMenu("Zoom");
         JMenuItem save = new JMenuItem("Save", 'S');
         JMenuItem load = new JMenuItem("Load", 'L');
         JMenuItem exit = new JMenuItem("Exit", 'X');
-        save.setIconTextGap(MENU_ITEM_GAP);
-        load.setIconTextGap(MENU_ITEM_GAP);
-        exit.setIconTextGap(MENU_ITEM_GAP);
+        JMenuItem zoomIn = new JMenuItem("Zoom In");
+        JMenuItem zoomOut = new JMenuItem("Zoom Out");
+        JMenuItem defaultZoom = new JMenuItem("Restore Default Zoom");
+
+        setJMenuItemGaps(MENU_ITEM_GAP, zoom, save, load, exit, zoomIn, zoomOut, defaultZoom);
+
+        initFileJMenu(file, save, load, exit);
+        initViewJMenu(view, zoom, zoomIn, zoomOut, defaultZoom);
+
+        menuBar.add(file);
+        menuBar.add(view);
+        add(menuBar, BorderLayout.NORTH);
+
+        addFunctionalitySaveJMenuItem(save);
+        addFunctionalityLoadJMenuItem(load);
+        addFunctionalityExitJMenuItem(exit);
+        addFunctionalityZoomJMenuItem(zoomIn, zoomOut, defaultZoom);
+    }
+
+    // MODIFIES: menuItemGap, zoom, save, load, exit, zoomIn, zoomOut, defaultZoom
+    // EFFECTS: Sets icon gap or menu lengths of each JMenuItem by menuItemGap amount
+    private void setJMenuItemGaps(int menuItemGap, JMenu zoom, JMenuItem save, JMenuItem load, JMenuItem exit,
+                                  JMenuItem zoomIn, JMenuItem zoomOut, JMenuItem defaultZoom) {
+        save.setIconTextGap(menuItemGap);
+        load.setIconTextGap(menuItemGap);
+        exit.setIconTextGap(menuItemGap);
+        zoom.setIconTextGap(menuItemGap);
+        zoomIn.setIconTextGap(menuItemGap + 5);
+        zoomOut.setIconTextGap(menuItemGap + 5);
+        defaultZoom.setIconTextGap(menuItemGap + 5);
+    }
+
+    // MODIFIES: view, zoom, zoomIn, zoomOut, defaultZoom
+    // EFFECTS: Adds zoom in/out/restore zoom buttons to zoom submenu, then adds it to view menu bar
+    private void initViewJMenu(JMenu view, JMenu zoom, JMenuItem zoomIn, JMenuItem zoomOut, JMenuItem defaultZoom) {
+        view.setMnemonic('V');
+        zoom.add(zoomIn);
+        zoom.add(zoomOut);
+        zoom.add(defaultZoom);
+        view.add(zoom);
+    }
+
+    // MODIFIES: file, save, load, exit
+    // EFFECTS: Adds save/load/exit buttons to file menu bar
+    private void initFileJMenu(JMenu file, JMenuItem save, JMenuItem load, JMenuItem exit) {
         file.setMnemonic('F');
         file.add(save);
         file.add(load);
         file.addSeparator();
         file.add(exit);
-        menuBar.add(file);
-        add(menuBar, BorderLayout.NORTH);
-
-        saveJMenuItem(save);
-        loadJMenuItem(load);
-        exitJMenuItem(exit);
     }
 
     // MODIFIES: this
@@ -83,7 +122,7 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: this, save
     // EFFECTS: saves to-do list into JSON file
-    public void saveJMenuItem(JMenuItem save) {
+    public void addFunctionalitySaveJMenuItem(JMenuItem save) {
         save.addActionListener(new ActionListener() {
             // MODIFIES: this
             // EFFECTS: when save button is pressed, saves current to-do list onto JSON file
@@ -106,7 +145,7 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: this, load
     // EFFECTS: loads to-do list from JSON file and display contents on visual list
-    public void loadJMenuItem(JMenuItem load) {
+    public void addFunctionalityLoadJMenuItem(JMenuItem load) {
         load.addActionListener(new ActionListener() {
             // MODIFIES: this
             // EFFECTS: when load button is pressed,
@@ -150,7 +189,7 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: this, exit
     // EFFECTS: button to exit the application
-    public void exitJMenuItem(JMenuItem exit) {
+    public void addFunctionalityExitJMenuItem(JMenuItem exit) {
         exit.addActionListener(new ActionListener() {
             // MODIFIES: this
             // EFFECTS: when exit button is pressed, terminates the entire application
@@ -159,6 +198,22 @@ public class ToDoListGUI extends JFrame {
                 System.exit(0);
             }
         });
+    }
+
+    // MODIFIES: zoomIn, zoomOut, defaultZoom
+    // EFFECTS: adds functionality to zoomIn and zoomOut buttons - increases/decreases zoom on lists in listPane
+    private void addFunctionalityZoomJMenuItem(JMenuItem zoomIn, JMenuItem zoomOut, JMenuItem defaultZoom) {
+        // MODIFIES: this
+        // EFFECTS: when zoomIn menu button is pressed, call listPane method to zoom in
+        zoomIn.addActionListener(e -> listPane.zoom(true));
+
+        // MODIFIES: this
+        // EFFECTS: when zoomOut menu button is pressed, call listPane method to zoom out
+        zoomOut.addActionListener(e -> listPane.zoom(false));
+
+        // MODIFIES: this
+        // EFFECTS: when defaultZoom menu button is pressed, call listPane method to reset default zoom
+        defaultZoom.addActionListener(e -> listPane.restoreZoom());
     }
 
     // MODIFIES: this

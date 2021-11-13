@@ -16,8 +16,14 @@ import java.util.List;
 public class ListPane extends JPanel {
     private static final int VISIBLE_ROWS = 10;
     private static final int BORDER_MARGIN = 10;
-    private static final int LIST_WIDTH = 300;
-    private static final int LIST_HEIGHT = 200;
+    private static final int LIST_WIDTH = 400;
+    private static final int LIST_HEIGHT = 400;
+    private static final int MIN_ZOOM = 3;
+    private static final int MAX_ZOOM = 30;
+    private static final int DEFAULT_FONT_SIZE = 15;
+    private static final int ZOOM_AMOUNT = 3;
+    private static final String FONT = "Arial";
+
     private ToDoListGUI toDoListGUI;
     private DefaultListModel<String> defaultToDoListModel;
     private DefaultListModel<String> defaultCompletedListModel;
@@ -25,6 +31,8 @@ public class ListPane extends JPanel {
     private JList<String> completedList;
     private JScrollPane todoListScrollPane;
     private JScrollPane completedListScrollPane;
+
+    private int fontSize = DEFAULT_FONT_SIZE;
 
     // EFFECTS: Constructs the component panes of the to-do list and completed list
     public ListPane(ToDoListGUI toDoListGUI) {
@@ -67,6 +75,7 @@ public class ListPane extends JPanel {
         todoList = new JList<>(defaultToDoListModel);
         todoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         todoList.setVisibleRowCount(VISIBLE_ROWS);
+        todoList.setFont(new Font("Arial", Font.PLAIN, DEFAULT_FONT_SIZE));
 
         // Enable buttons when a task is selected
         todoList.addListSelectionListener(new ListSelectionListener() {
@@ -93,6 +102,7 @@ public class ListPane extends JPanel {
         completedList = new JList<>(defaultCompletedListModel);
         completedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         completedList.setVisibleRowCount(VISIBLE_ROWS);
+        completedList.setFont(new Font("Arial", Font.PLAIN, DEFAULT_FONT_SIZE));
 
         addListeners();
 
@@ -218,5 +228,32 @@ public class ListPane extends JPanel {
         defaultToDoListModel.addElement(temp);
     }
 
+    // MODIFIES: this
+    // EFFECTS: if given param is true, increase the font size, otherwise decrease the font size
+    public void zoom(boolean shouldZoom) {
+        if (shouldZoom) {
+            // prevents excess zooming in
+            if (fontSize <= MAX_ZOOM) {
+                fontSize += ZOOM_AMOUNT;
+                todoList.setFont(new Font(FONT, Font.PLAIN, fontSize));
+                completedList.setFont(new Font(FONT, Font.PLAIN, fontSize));
+            }
+        } else {
+            // prevents excess zooming out
+            if (fontSize >= MIN_ZOOM) {
+                fontSize -= ZOOM_AMOUNT;
+                todoList.setFont(new Font(FONT, Font.PLAIN, fontSize));
+                completedList.setFont(new Font(FONT, Font.PLAIN, fontSize));
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: restores default zoom percentage
+    public void restoreZoom() {
+        fontSize = DEFAULT_FONT_SIZE;
+        todoList.setFont(new Font(FONT, Font.PLAIN, DEFAULT_FONT_SIZE));
+        completedList.setFont(new Font(FONT, Font.PLAIN, DEFAULT_FONT_SIZE));
+    }
 
 }
