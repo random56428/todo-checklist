@@ -62,7 +62,7 @@ public class LowerPane extends JPanel {
                 changedUpdate(e);
             }
 
-            // MODIFIES: this
+            // MODIFIES: LowerPane.this
             // EFFECTS: when text is inserted/removed/changed and text in box is not empty, enable
             // add button, otherwise disable it
             @Override
@@ -78,7 +78,7 @@ public class LowerPane extends JPanel {
         this.addButton = new JButton("Add");
         addButton.setEnabled(false);
         addButton.addActionListener(new ActionListener() {
-            // MODIFIES: this
+            // MODIFIES: LowerPane.this
             // EFFECTS: if text box is not empty and when add button is pressed, add string as task to
             // to-do list, reset text box, and focus back on field box, otherwise if box is empty, do nothing
             @Override

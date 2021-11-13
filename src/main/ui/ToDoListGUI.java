@@ -124,7 +124,7 @@ public class ToDoListGUI extends JFrame {
     // EFFECTS: saves to-do list into JSON file
     public void addFunctionalitySaveJMenuItem(JMenuItem save) {
         save.addActionListener(new ActionListener() {
-            // MODIFIES: this
+            // MODIFIES: ToDoListGUI.this
             // EFFECTS: when save button is pressed, saves current to-do list onto JSON file
             // Otherwise, throws FileNotFoundException if path/file not found or file can not be saved, signals to user
             // that to-do list was unable to be saved.
@@ -147,7 +147,7 @@ public class ToDoListGUI extends JFrame {
     // EFFECTS: loads to-do list from JSON file and display contents on visual list
     public void addFunctionalityLoadJMenuItem(JMenuItem load) {
         load.addActionListener(new ActionListener() {
-            // MODIFIES: this
+            // MODIFIES: ToDoListGUI.this
             // EFFECTS: when load button is pressed,
             // if there is already data in the list, prompt the user whether to overwrite current to-do list content,
             //          if yes - clears current list and load to-do list from JSON file
@@ -191,7 +191,7 @@ public class ToDoListGUI extends JFrame {
     // EFFECTS: button to exit the application
     public void addFunctionalityExitJMenuItem(JMenuItem exit) {
         exit.addActionListener(new ActionListener() {
-            // MODIFIES: this
+            // MODIFIES: ToDoListGUI.this
             // EFFECTS: when exit button is pressed, terminates the entire application
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -203,15 +203,15 @@ public class ToDoListGUI extends JFrame {
     // MODIFIES: zoomIn, zoomOut, defaultZoom
     // EFFECTS: adds functionality to zoomIn and zoomOut buttons - increases/decreases zoom on lists in listPane
     private void addFunctionalityZoomJMenuItem(JMenuItem zoomIn, JMenuItem zoomOut, JMenuItem defaultZoom) {
-        // MODIFIES: this
+        // MODIFIES: ToDoListGUI.this
         // EFFECTS: when zoomIn menu button is pressed, call listPane method to zoom in
         zoomIn.addActionListener(e -> listPane.zoom(true));
 
-        // MODIFIES: this
+        // MODIFIES: ToDoListGUI.this
         // EFFECTS: when zoomOut menu button is pressed, call listPane method to zoom out
         zoomOut.addActionListener(e -> listPane.zoom(false));
 
-        // MODIFIES: this
+        // MODIFIES: ToDoListGUI.this
         // EFFECTS: when defaultZoom menu button is pressed, call listPane method to reset default zoom
         defaultZoom.addActionListener(e -> listPane.restoreZoom());
     }
