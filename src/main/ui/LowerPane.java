@@ -32,6 +32,8 @@ public class LowerPane extends JPanel {
         initUncheckButton();
         initClearAllButton();
 
+        addActionListenerToAddField();
+
         add(textField);
         add(addButton);
         add(deleteButton);
@@ -77,19 +79,6 @@ public class LowerPane extends JPanel {
     private void initAddButton() {
         this.addButton = new JButton("Add");
         addButton.setEnabled(false);
-        addButton.addActionListener(new ActionListener() {
-            // MODIFIES: LowerPane.this
-            // EFFECTS: if text box is not empty and when add button is pressed, add string as task to
-            // to-do list, reset text box, and focus back on field box, otherwise if box is empty, do nothing
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!textField.getText().equals("")) {
-                    toDoListGUI.addTask(textField.getText());
-                    textField.setText("");
-                    textField.requestFocusInWindow();
-                }
-            }
-        });
     }
 
     // MODIFIES: this
@@ -166,6 +155,29 @@ public class LowerPane extends JPanel {
                 }
             }
         });
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds listener to add button/text field, when button is pressed or enter is pressed when text field is
+    // focused, add the task to the list
+    private void addActionListenerToAddField() {
+        // The following lines references code from the website:
+        // Link: https://stackoverflow.com/questions/4419667/detect-enter-press-in-jtextfield
+        Action action = new AbstractAction() {
+            // MODIFIES: LowerPane.this
+            // EFFECTS: if text box is not empty, add string as task to to-do list, reset text box,
+            // and focus back on text field, otherwise if box is empty, do nothing
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!textField.getText().equals("")) {
+                    toDoListGUI.addTask(textField.getText());
+                    textField.setText("");
+                    textField.requestFocusInWindow();
+                }
+            }
+        };
+        textField.addActionListener(action);
+        addButton.addActionListener(action);
     }
 
     // MODIFIES: this

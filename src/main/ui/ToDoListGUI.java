@@ -59,8 +59,8 @@ public class ToDoListGUI extends JFrame {
 
         setJMenuItemGaps(MENU_ITEM_GAP, zoom, save, load, exit, zoomIn, zoomOut, defaultZoom);
 
-        initFileJMenu(file, save, load, exit);
-        initViewJMenu(view, zoom, zoomIn, zoomOut, defaultZoom);
+        addJMenuItemsToFile(file, save, load, exit);
+        addJMenuItemsToView(view, zoom, zoomIn, zoomOut, defaultZoom);
 
         menuBar.add(file);
         menuBar.add(view);
@@ -87,7 +87,8 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: view, zoom, zoomIn, zoomOut, defaultZoom
     // EFFECTS: Adds zoom in/out/restore zoom buttons to zoom submenu, then adds it to view menu bar
-    private void initViewJMenu(JMenu view, JMenu zoom, JMenuItem zoomIn, JMenuItem zoomOut, JMenuItem defaultZoom) {
+    private void addJMenuItemsToView(JMenu view, JMenu zoom, JMenuItem zoomIn, JMenuItem zoomOut,
+                                     JMenuItem defaultZoom) {
         view.setMnemonic('V');
         zoom.add(zoomIn);
         zoom.add(zoomOut);
@@ -97,7 +98,7 @@ public class ToDoListGUI extends JFrame {
 
     // MODIFIES: file, save, load, exit
     // EFFECTS: Adds save/load/exit buttons to file menu bar
-    private void initFileJMenu(JMenu file, JMenuItem save, JMenuItem load, JMenuItem exit) {
+    private void addJMenuItemsToFile(JMenu file, JMenuItem save, JMenuItem load, JMenuItem exit) {
         file.setMnemonic('F');
         file.add(save);
         file.add(load);
