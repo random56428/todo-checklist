@@ -17,6 +17,7 @@ import java.io.IOException;
 // This class represents the main window of the to-do list application
 public class ToDoListGUI extends JFrame {
     private static final String JSON_FILE_LOCATION = "./data/todolist.json";
+    private static final String JFRAME_ICON_LOCATION = "./data/icon.png";
     private JsonReader reader;
     private JsonWriter writer;
     private ToDoList toDoList;
@@ -29,6 +30,7 @@ public class ToDoListGUI extends JFrame {
         new SplashScreen(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setIconImage(new ImageIcon(JFRAME_ICON_LOCATION).getImage());
 
         initMenu();
         initList();
