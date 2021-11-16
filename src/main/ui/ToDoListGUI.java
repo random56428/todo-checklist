@@ -7,8 +7,7 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -27,7 +26,7 @@ public class ToDoListGUI extends JFrame {
     //EFFECTS: Constructs the to-do list gui
     public ToDoListGUI() {
         super("To-Do List");
-        new SplashScreen(this);
+        SplashScreen splashScreen = new SplashScreen(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setIconImage(new ImageIcon(JFRAME_ICON_LOCATION).getImage());
@@ -37,6 +36,16 @@ public class ToDoListGUI extends JFrame {
         initLowerPane();
 
         pack();
+
+        // calls setVisible(true) once splash screen is closed;
+        // fixes the bug that auto minimizes the gui if setVisible(true) is called before pack()
+        splashScreen.getDialog().addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ToDoListGUI.this.setVisible(true);
+            }
+        });
+
         setMinimumSize(this.getSize());
         setLocationRelativeTo(null);
     }

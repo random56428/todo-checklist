@@ -94,8 +94,12 @@ public class SplashScreen {
         protected void done() {
             dialog.setVisible(false);
             dialog.dispose();
-            toDoListGUI.setVisible(true);
         }
+    }
+
+    // EFFECTS: gets the dialog and returns it
+    public JDialog getDialog() {
+        return this.dialog;
     }
 
 }
