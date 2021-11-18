@@ -14,10 +14,10 @@ import java.util.List;
 
 // Represents the list component of to-do list and completed list
 public class ListPane extends JPanel {
+    public static final int LIST_WIDTH = 400;
+    public static final int LIST_HEIGHT = 400;
     private static final int VISIBLE_ROWS = 10;
     private static final int BORDER_MARGIN = 10;
-    private static final int LIST_WIDTH = 400;
-    private static final int LIST_HEIGHT = 400;
     private static final int MIN_ZOOM = 3;
     private static final int MAX_ZOOM = 30;
     private static final int DEFAULT_FONT_SIZE = 15;
@@ -255,5 +255,4 @@ public class ListPane extends JPanel {
         todoList.setFont(new Font(FONT, Font.PLAIN, DEFAULT_FONT_SIZE));
         completedList.setFont(new Font(FONT, Font.PLAIN, DEFAULT_FONT_SIZE));
     }
-
 }

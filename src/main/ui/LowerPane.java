@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
@@ -21,6 +22,8 @@ public class LowerPane extends JPanel {
     // EFFECTS: Constructs the text field and buttons, then add them to JPanel
     public LowerPane(ToDoListGUI toDoListGUI) {
         super(new FlowLayout());
+        // Automatically shifts bottom container to the left to fit right picture pane
+        setBorder(new EmptyBorder(0,0,0, ListPane.LIST_WIDTH));
 
         this.toDoListGUI = toDoListGUI;
 

@@ -22,6 +22,7 @@ public class ToDoListGUI extends JFrame {
     private ToDoList toDoList;
     private ListPane listPane;
     private LowerPane lowerPane;
+    private RightPicturePane rightPicturePane;
 
     //EFFECTS: Constructs the to-do list gui
     public ToDoListGUI() {
@@ -34,6 +35,7 @@ public class ToDoListGUI extends JFrame {
         initMenu();
         initList();
         initLowerPane();
+        initRightPane();
 
         pack();
 
@@ -130,6 +132,13 @@ public class ToDoListGUI extends JFrame {
     private void initLowerPane() {
         this.lowerPane = new LowerPane(this);
         add(lowerPane, BorderLayout.SOUTH);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize the right picture panel
+    private void initRightPane() {
+        this.rightPicturePane = new RightPicturePane();
+        add(new RightPicturePane(), BorderLayout.EAST);
     }
 
     // MODIFIES: this, save
