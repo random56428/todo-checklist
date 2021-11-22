@@ -25,11 +25,12 @@ public class ToDoListGUI extends JFrame {
     private ListPane listPane;
     private LowerPane lowerPane;
     private RightPicturePane rightPicturePane;
+    private SplashScreen splashScreen;
 
     //EFFECTS: Constructs the to-do list gui
     public ToDoListGUI() {
         super("To-Do List");
-        SplashScreen splashScreen = new SplashScreen(this);
+        this.splashScreen = new SplashScreen();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setIconImage(new ImageIcon(JFRAME_ICON_LOCATION).getImage());

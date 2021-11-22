@@ -79,3 +79,27 @@ Sun Nov 21 23:23:11 PST 2021
 Sun Nov 21 23:23:13 PST 2021
 [CLEAR-ALL] Cleared all completed tasks in completed to-do list
 ```
+
+## Phase 4: Task 3
+
+I believe my overall design is great by looking at the UML class diagram, it is clear that each class has their
+own responsibility and there are no cycles or loops. To list a few, a list pane that displays the list visually, a lower 
+pane that displays the button functionalities, and a right pane to display a logo. On the UML, it is evident that the 
+ToDoListGUI class acts as the main control center that operate on multiple tasks. This shows that there is good cohesion
+inside the classes. Although, there are some bidirectional relationships, I believe my application has satisfactory 
+coupling between classes.
+
+If I had more time to work on the project,
+- I would refactor the code by removing the REQUIRES clauses from each of the method specifications. Assuming that the 
+client/user will know exactly what to input into a function won't be reliable. What if the user enters an incorrect 
+type as parameter? Due to this, I would make the application more robust by introducing exceptions and replacing those
+clauses. 
+- I would refactor my gui classes so that there are no "passing the data around". For example if I select a list 
+element, that data needs to go through a method in a class, then passed again to the buttons to enable them. This is a 
+bad design since it is semantic coupling; all the gui classes depend on each other and there is no single point of 
+control. A few ways I could refactor this is by applying the Observer design pattern, introducing more helper methods, 
+or somehow incorporate a class that only updates gui elements.
+- I would like to remove the bidirectional relationship on the UML diagram. It's not necessarily bidirectional as the
+two classes are not related. Again, this is the result of passing the ball around instead.
+- I would include more helper functions. Each method should only do "one thing" but some of my methods do several
+things. By refactoring this, the code will become more readable.

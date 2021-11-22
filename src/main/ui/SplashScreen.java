@@ -15,11 +15,9 @@ public class SplashScreen {
     private JProgressBar progressBar;
     private JLabel image;
     private JLabel title;
-    private ToDoListGUI toDoListGUI;
 
     // EFFECTS: Constructs the splash screen
-    public SplashScreen(ToDoListGUI toDoListGUI) {
-        this.toDoListGUI = toDoListGUI;
+    public SplashScreen() {
         progressBar = new JProgressBar(0, 5000);
         dialog = new JDialog();
         dialog.setLayout(new BorderLayout());
