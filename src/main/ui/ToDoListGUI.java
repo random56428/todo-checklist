@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Task;
 import model.ToDoList;
 import persistence.JsonReader;
@@ -31,6 +33,7 @@ public class ToDoListGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setIconImage(new ImageIcon(JFRAME_ICON_LOCATION).getImage());
+        initPrintLog();
 
         initMenu();
         initList();
@@ -50,6 +53,18 @@ public class ToDoListGUI extends JFrame {
 
         setMinimumSize(this.getSize());
         setLocationRelativeTo(null);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a window listener to this JFrame
+    public void initPrintLog() {
+        this.addWindowListener(new WindowAdapter() {
+            // EFFECTS: when window is closed, print event log to console
+            @Override
+            public void windowClosing(WindowEvent e) {
+                printEventLog();
+            }
+        });
     }
 
     // MODIFIES: this
@@ -138,7 +153,7 @@ public class ToDoListGUI extends JFrame {
     // EFFECTS: initialize the right picture panel
     private void initRightPane() {
         this.rightPicturePane = new RightPicturePane();
-        add(new RightPicturePane(), BorderLayout.EAST);
+        add(rightPicturePane, BorderLayout.EAST);
     }
 
     // MODIFIES: this, save
@@ -213,9 +228,10 @@ public class ToDoListGUI extends JFrame {
     public void addFunctionalityExitJMenuItem(JMenuItem exit) {
         exit.addActionListener(new ActionListener() {
             // MODIFIES: ToDoListGUI.this
-            // EFFECTS: when exit button is pressed, terminates the entire application
+            // EFFECTS: when exit button is pressed, terminates the entire application and prints event log to console
             @Override
             public void actionPerformed(ActionEvent e) {
+                printEventLog();
                 System.exit(0);
             }
         });
@@ -305,4 +321,10 @@ public class ToDoListGUI extends JFrame {
         lowerPane.enableClearAllButton(isEmpty);
     }
 
+    // EFFECTS: prints all the events that have been logged since the application started
+    public void printEventLog() {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println(event.toString());
+        }
+    }
 }

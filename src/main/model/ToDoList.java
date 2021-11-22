@@ -24,6 +24,8 @@ public class ToDoList implements Writable {
     // EFFECTS: adds given task to the end of the to-do list
     public void addTask(Task t) {
         toDoList.add(t);
+        EventLog.getInstance().logEvent(
+                new Event("[ADD] \"" + t.getNote() + "\" todo task added to to-do list"));
     }
 
     // MODIFIES: this
@@ -33,9 +35,13 @@ public class ToDoList implements Writable {
         for (Task t : toDoList) {
             if (t.getNote().equals(n)) {
                 toDoList.remove(t);
+                EventLog.getInstance().logEvent(
+                        new Event("[DELETE] \"" + n + "\" todo task deleted from to-do list"));
                 return true;
             }
         }
+        EventLog.getInstance().logEvent(
+                new Event("[FAIL] Failed to delete \"" + n + "\" todo task from to-do list"));
         return false;
     }
 
@@ -46,9 +52,14 @@ public class ToDoList implements Writable {
         for (Task t : toDoList) {
             if (t.getNote().equals(beforeNote)) {
                 t.setNote(afterNote);
+                EventLog.getInstance().logEvent(
+                        new Event("[EDIT] \"" + beforeNote + "\" changed to \"" + afterNote
+                                + "\" todo task in to-do list"));
                 return true;
             }
         }
+        EventLog.getInstance().logEvent(
+                new Event("[FAIL] Failed to edit \"" + beforeNote + "\" todo task in to-do list"));
         return false;
     }
 
@@ -62,9 +73,13 @@ public class ToDoList implements Writable {
                 t.check();
                 completedList.add(t);
                 toDoList.remove(t);
+                EventLog.getInstance().logEvent(
+                        new Event("[CHECK] \"" + n + "\" todo task checked from to-do list"));
                 return true;
             }
         }
+        EventLog.getInstance().logEvent(
+                new Event("[FAIL] Failed to check \"" + n + "\" todo task from to-do list"));
         return false;
     }
 
@@ -78,9 +93,13 @@ public class ToDoList implements Writable {
                 t.uncheck();
                 toDoList.add(t);
                 completedList.remove(t);
+                EventLog.getInstance().logEvent(
+                        new Event("[UNCHECK] \"" + n + "\" todo task unchecked from completed to-do list"));
                 return true;
             }
         }
+        EventLog.getInstance().logEvent(
+                new Event("[FAIL] Failed to uncheck \"" + n + "\" todo task from completed to-do list"));
         return false;
     }
 
@@ -88,6 +107,8 @@ public class ToDoList implements Writable {
     // EFFECTS: deletes all completed task from complete list
     public void deleteAllCompleteTask() {
         completedList.clear();
+        EventLog.getInstance().logEvent(
+                new Event("[CLEAR-ALL] Cleared all completed tasks in completed to-do list"));
     }
 
     // EFFECTS: returns a string of all the task's notes currently in to-do list/completed list
